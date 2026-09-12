@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3LABABEE AI Product Post Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Ovo&family=Inter:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <main class="layout">
+    <section class="controls card">
+      <div class="brand-line">3LABABEE</div>
+      <h1>AI Product Post Generator</h1>
+      <p class="intro">
+        Upload the product, choose an OpenRouter image model, then add the real QR after generation.
+        The QR is never sent to AI.
+      </p>
+
+      <label class="field">
+        <span>AI model</span>
+        <select id="modelSelect">
+          <option value="google/gemini-3.1-flash-image">Nano Banana 2 · Standard</option>
+          <option value="google/gemini-3-pro-image">Gemini 3 Pro Image · Premium</option>
+          <option value="google/gemini-3.1-flash-lite-image">Nano Banana 2 Lite · Economy</option>
+        </select>
+      </label>
+
+      <label class="field">
+        <span>AI resolution</span>
+        <select id="resolutionSelect">
+          <option value="1K">1K · Recommended for testing</option>
+          <option value="2K">2K</option>
+          <option value="4K">4K</option>
+        </select>
+      </label>
+      <p id="modelHint" class="hint"></p>
+
+      <label class="upload">
+        <span>1. Product image</span>
+        <input id="productInput" type="file" accept="image/png,image/jpeg,image/webp" />
+      </label>
+
+      <div id="productPreviewWrap" class="mini-preview hidden">
+        <img id="productPreview" alt="Product preview" />
+      </div>
+
+      <label class="check-row">
+        <input id="preserveBrand" type="checkbox" checked />
+        <span>Preserve original logo, text and QR card exactly</span>
+      </label>
+
+      <button id="generateBtn" class="primary" disabled>Generate with OpenRouter</button>
+
+      <div class="divider"></div>
+
+      <label class="upload">
+        <span>2. Product QR · untouched</span>
+        <input id="qrInput" type="file" accept="image/png,image/jpeg,image/webp" />
+      </label>
+
+      <p class="hint">
+        The QR is composited directly in the browser after AI generation, so its pattern is never regenerated.
+      </p>
+
+      <div class="qr-controls">
+        <label>QR size <input id="qrScale" type="range" min="75" max="125" value="100" /></label>
+        <label>Horizontal <input id="qrX" type="range" min="-90" max="90" value="0" /></label>
+        <label>Vertical <input id="qrY" type="range" min="-90" max="90" value="0" /></label>
+      </div>
+
+      <div class="button-row">
+        <button id="resetQrBtn">Reset QR</button>
+        <button id="downloadBtn" class="primary" disabled>Download PNG</button>
+      </div>
+
+      <div id="status" class="status">Upload a product image to start.</div>
+      <div id="cost" class="cost hidden"></div>
+    </section>
+
+    <section class="preview card">
+      <div class="preview-head">
+        <strong>Final Post Preview</strong>
+        <span>1:1 · 1024 × 1024 export</span>
+      </div>
+      <canvas id="finalCanvas" width="1024" height="1024"></canvas>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

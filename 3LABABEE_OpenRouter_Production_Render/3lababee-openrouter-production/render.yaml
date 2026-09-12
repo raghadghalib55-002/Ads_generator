@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: 3lababee-product-post-generator
+    runtime: node
+    plan: free
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: APP_URL
+        sync: false
