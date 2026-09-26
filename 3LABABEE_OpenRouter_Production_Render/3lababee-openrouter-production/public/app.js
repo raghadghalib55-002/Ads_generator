@@ -31,10 +31,12 @@ const QR_BOX = { x: 86, y: 687, w: 237, h: 174 };
 // anymore — it's drawn by TEXT_LAYERS above. public/template.png must be the
 // text-free version of the artwork (logo/divider/QR card border only).
 const BRAND_REGIONS = [
-  { x: 0.035, y: 0.035, w: 0.36, h: 0.12 },  // 3LABABEE logo
-  { x: 0.035, y: 0.16,  w: 0.30, h: 0.22 },  // headline background area
-  { x: 0.035, y: 0.34,  w: 0.27, h: 0.12 },  // subtitle background area + divider
-  { x: 0.0723, y: 0.5953, w: 0.2544, h: 0.2654 }, // QR card (plain empty border, no label text)
+  {
+    x: 0,
+    y: 0,
+    w: 0.43,
+    h: 1
+  }
 ];
 
 // ---------------------------------------------------------------------------
