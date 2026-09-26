@@ -31,11 +31,21 @@ const QR_BOX = { x: 86, y: 687, w: 237, h: 174 };
 // anymore — it's drawn by TEXT_LAYERS above. public/template.png must be the
 // text-free version of the artwork (logo/divider/QR card border only).
 const BRAND_REGIONS = [
+  // Protect the main left side for the full poster
   {
     x: 0,
     y: 0,
     w: 0.43,
     h: 1
+  },
+
+  // Extra protection around headline/subtitle area
+  // Prevents AI-generated letters from appearing beside "New Arrival"
+  {
+    x: 0,
+    y: 0.10,
+    w: 0.52,
+    h: 0.45
   }
 ];
 
