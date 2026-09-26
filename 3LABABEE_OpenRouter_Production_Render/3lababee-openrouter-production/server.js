@@ -48,38 +48,94 @@ const MERGE_PROMPT = `
 Create ONE finished premium square 3LABABEE product advertisement using TWO reference images.
 
 REFERENCE 1 = the fixed 3LABABEE master advertising template.
-REFERENCE 2 = the exact product photo uploaded by the user.
+REFERENCE 2 = the exact real product photograph uploaded by the user.
 
-GOAL:
-Place the product from REFERENCE 2 naturally on the right-side marble product stage inside the gold circular display area of REFERENCE 1.
+PRIMARY OBJECTIVE:
+Integrate the exact product from REFERENCE 2 naturally onto the right-side
+marble product stage inside the gold circular display area of REFERENCE 1.
+
+The product must look like the SAME physical product photographed in
+REFERENCE 2, not an AI recreation or a similar product.
+
+PRODUCT FIDELITY — HIGHEST PRIORITY:
+- REFERENCE 2 is the absolute source of truth for the product.
+- Preserve the product's exact identity and appearance.
+- Preserve all visible brand names, logos, printed text, engravings,
+  labels, numbers, symbols and markings exactly as they appear in REFERENCE 2.
+- Preserve exact shape, proportions, geometry, materials, colors, textures,
+  stitching, hardware, gemstones, buttons, buckles, straps and distinctive details.
+- Do NOT rewrite, reinterpret, regenerate, misspell, replace or invent
+  any text or branding visible on the product.
+- Do NOT create a similar or approximate version of the product.
+- Do NOT simplify fine details.
+- Do NOT add or remove product parts.
+- Do NOT duplicate the product.
+- There must be exactly ONE product in the final advertisement.
+
+IMPORTANT:
+Product fidelity is more important than creating a dramatic new viewing angle.
+
+If changing the product's angle or perspective would require reconstructing,
+guessing or altering any product detail, KEEP THE ORIGINAL PRODUCT VIEWING
+ANGLE instead.
+
+ALLOWED PRODUCT ADJUSTMENTS:
+- Position the product within the right-side display area.
+- Resize it proportionally.
+- Make only minimal perspective or rotation adjustments when they can be
+  performed without changing product identity or details.
+- Match the surrounding warm studio lighting naturally.
+- Add a realistic contact shadow where the product meets the pedestal.
+- Make subtle exposure and color adjustments necessary for integration.
+
+DO NOT:
+- Redesign the product.
+- Reconstruct product branding.
+- Generate new writing on the product.
+- Change logos or labels.
+- Change product proportions.
+- Add accessories or missing parts.
+- Remove existing parts.
+- Create reflections that look like a second product.
+- Create a second copy of the product.
+- Place any part of the product outside the intended right-side display zone.
 
 TEMPLATE — CRITICAL:
-- Keep the square 3LABABEE master template composition visually unchanged.
-- Preserve the warm cream background, botanical shadows, gold circular frame, marble pedestal, spacing and overall layout.
-- Keep the left-side logo and all existing text in the same locations.
-- Do not add new text, labels, logos, badges, icons, props or branding.
-- Keep the QR card on the lower-left EMPTY. Do not invent, draw, simulate, stylize or place a QR code. The real QR will be added later by software.
-
-PRODUCT — CRITICAL:
-- Treat REFERENCE 2 as the only source of truth for the product.
-- Preserve the exact product identity, design, color, material, brand marks, patterns, stitching, hardware, proportions and distinctive details.
-- Do not redesign or simplify the product.
-- Do not invent extra straps, buckles, zippers, stones, logos, locks, accessories, parts or duplicate items.
-- You MAY change only the viewing angle, rotation, perspective, scale and position when necessary to make the product fit the advertisement naturally.
-- You MAY adapt lighting, reflections and realistic contact shadows to match the warm studio environment.
+- Preserve the master template composition.
+- Preserve the warm cream environment, botanical shadows, gold circular
+  frame, marble pedestal, spacing and overall visual style.
+- The entire left side is a protected branding area.
+- Do NOT add ANY new letters, words, numbers, labels, logos, badges,
+  promotional text or symbols anywhere in the advertisement.
+- Do not modify or recreate the existing left-side typography.
+- Keep the QR card area empty.
+- Do NOT generate, imitate, stylize or reconstruct a QR code.
+- The real QR code will be added programmatically after generation.
 
 COMPOSITION:
-- The product must be clearly visible and commercially attractive on the right pedestal.
-- Keep it fully inside the intended product-display zone.
-- Do not cover the 3LABABEE logo, headline, descriptive copy or QR panel.
-- Maintain a premium, calm, elegant luxury e-commerce look.
+- Place the product naturally and prominently on the right marble pedestal.
+- Keep the product fully visible.
+- Maintain realistic scale.
+- Match the direction and softness of the template lighting.
+- Create realistic contact with the pedestal rather than making the product float.
+- Keep the result elegant, premium, clean and suitable for e-commerce advertising.
+
+FINAL QUALITY CHECK:
+Before producing the image, compare the product against REFERENCE 2.
+The final product must remain recognizable as the exact same item.
+
+If there is any conflict between visual creativity and preserving the original
+product accurately, ALWAYS choose product accuracy.
 
 OUTPUT:
 - One square 1:1 advertisement.
-- No QR code.
+- Exactly one product.
+- No generated QR code.
 - No watermark.
-- No extra captions.
+- No additional captions.
+- No invented text.
 `;
+
 
 function toDataUrl(buffer, mimeType = "image/png") {
   return `data:${mimeType};base64,${buffer.toString("base64")}`;
