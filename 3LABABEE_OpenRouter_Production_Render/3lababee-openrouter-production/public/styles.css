@@ -130,3 +130,57 @@ canvas {
   .layout { grid-template-columns: 1fr; padding: 14px; }
   .controls { position: static; }
 }
+
+
+/* Product Photo Tips */
+
+.upload-tips {
+  margin: 16px 0;
+  padding: 16px;
+  background: #f7f8fc;
+  border: 1px solid #e4e7f0;
+  border-radius: 12px;
+}
+
+.upload-tips summary {
+  cursor: pointer;
+  color: #24255f;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.upload-tips-content {
+  padding-top: 12px;
+}
+
+.upload-tips-content p,
+.upload-tips-content li {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #4b5563;
+}
+
+.upload-tips-content ul {
+  padding-left: 20px;
+}
+
+.upload-tips-content li {
+  margin-bottom: 6px;
+}
+
+.orientation-note {
+  margin-top: 14px;
+  padding: 12px;
+  background: #eef5ff;
+  border-left: 3px solid #24255f;
+  border-radius: 8px;
+}
+
+.orientation-note strong {
+  color: #24255f;
+}
+
+.tips-note {
+  margin-top: 12px;
+  color: #8a5b30 !important;
+}
