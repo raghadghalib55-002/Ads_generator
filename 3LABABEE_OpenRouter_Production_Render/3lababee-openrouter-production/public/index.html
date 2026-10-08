@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Ovo&family=Inter:wght@400;500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   />
 
@@ -21,32 +21,87 @@
 <body>
   <main class="layout">
 
-    <!-- LEFT SIDE: CONTROLS -->
+    <!-- LEFT PANEL: CONTROLS -->
     <section class="controls card">
 
-      <div class="brand-line">3LABABEE</div>
+      <!-- BRAND AND LANGUAGE SWITCHER -->
+      <div class="brand-header">
 
-      <h1>AI Product Post Generator</h1>
+        <div class="app-brand">
+          <img
+            src="/3lababee-logo.png"
+            alt="3LABABEE Logo"
+            class="app-logo"
+          />
 
-      <p class="intro">
+          <div class="app-brand-text">
+            <h1 data-i18n="title">
+              AI Product Post Generator
+            </h1>
+
+            <p data-i18n="subtitle">
+              AI-powered product advertising studio
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="language-switcher"
+          role="group"
+          aria-label="Language"
+        >
+          <button
+            type="button"
+            class="lang-btn active"
+            data-lang="en"
+            aria-pressed="true"
+          >
+            EN
+          </button>
+
+          <button
+            type="button"
+            class="lang-btn"
+            data-lang="ar"
+            aria-pressed="false"
+          >
+            عربي
+          </button>
+        </div>
+
+      </div>
+
+      <!-- INTRODUCTION -->
+      <p class="intro" data-i18n="intro">
         Upload your product image, create a professional advertisement
         with 3LABABEE, and add your QR code to the final design.
       </p>
 
       <!-- AI MODEL -->
       <label class="field">
-        <span>AI model</span>
+        <span data-i18n="modelLabel">
+          AI model
+        </span>
 
         <select id="modelSelect">
-          <option value="google/gemini-3.1-flash-image">
+          <option
+            value="google/gemini-3.1-flash-image"
+            data-i18n="modelStandard"
+          >
             Nano Banana 2 · Standard
           </option>
 
-          <option value="google/gemini-3-pro-image">
+          <option
+            value="google/gemini-3-pro-image"
+            data-i18n="modelPremium"
+          >
             Gemini 3 Pro Image · Premium
           </option>
 
-          <option value="google/gemini-3.1-flash-lite-image">
+          <option
+            value="google/gemini-3.1-flash-lite-image"
+            data-i18n="modelEconomy"
+          >
             Nano Banana 2 Lite · Economy
           </option>
         </select>
@@ -54,14 +109,22 @@
 
       <!-- AI RESOLUTION -->
       <label class="field">
-        <span>AI resolution</span>
+        <span data-i18n="resolutionLabel">
+          AI resolution
+        </span>
 
         <select id="resolutionSelect">
-          <option value="1K">
+          <option value="1K" data-i18n="res1k">
             1K · Recommended for testing
           </option>
-          <option value="2K">2K</option>
-          <option value="4K">4K</option>
+
+          <option value="2K" data-i18n="res2k">
+            2K
+          </option>
+
+          <option value="4K" data-i18n="res4k">
+            4K
+          </option>
         </select>
       </label>
 
@@ -69,7 +132,9 @@
 
       <!-- PRODUCT IMAGE UPLOAD -->
       <label class="upload">
-        <span>1. Product image</span>
+        <span data-i18n="productLabel">
+          1. Product image
+        </span>
 
         <input
           id="productInput"
@@ -79,7 +144,10 @@
       </label>
 
       <!-- PRODUCT IMAGE PREVIEW -->
-      <div id="productPreviewWrap" class="mini-preview hidden">
+      <div
+        id="productPreviewWrap"
+        class="mini-preview hidden"
+      >
         <img
           id="productPreview"
           alt="Product preview"
@@ -88,46 +156,56 @@
 
       <!-- PRODUCT PHOTO GUIDELINES -->
       <details class="upload-tips">
-        <summary>
-          💡 Product Photo Tips
 
-          <span class="tips-summary-hint">
-            Recommended before uploading
+        <summary>
+          <span
+            class="tips-title"
+            data-i18n="tipsTitle"
+          >
+            Product Photo Tips
+          </span>
+
+          <span
+            class="tips-summary-hint"
+            data-i18n="viewGuidelines"
+          >
+            View guidelines
           </span>
         </summary>
 
         <div class="upload-tips-content">
 
-          <p>
-            Follow these recommendations for better advertisement results:
+          <p data-i18n="tipsIntro">
+            Follow these recommendations for better
+            advertisement results:
           </p>
 
           <ul>
-            <li>
+            <li data-i18n="tip1">
               Upload a clear, high-resolution product image.
             </li>
 
-            <li>
+            <li data-i18n="tip2">
               Use a clean, simple background whenever possible.
             </li>
 
-            <li>
+            <li data-i18n="tip3">
               Make sure the entire product is visible and not cropped.
             </li>
 
-            <li>
+            <li data-i18n="tip4">
               Avoid blurry images, harsh shadows, and reflections.
             </li>
 
-            <li>
+            <li data-i18n="tip5">
               Keep product logos, labels, and important details visible.
             </li>
 
-            <li>
+            <li data-i18n="tip6">
               Upload one product per image for better results.
             </li>
 
-            <li>
+            <li data-i18n="tip7">
               Choose your preferred viewing angle before uploading.
             </li>
           </ul>
@@ -135,22 +213,22 @@
           <!-- PRODUCT ORIENTATION -->
           <div class="orientation-note">
 
-            <strong>
-              ↔ Important: Product Orientation
+            <strong data-i18n="orientationTitle">
+              Important: Product Orientation
             </strong>
 
-            <p>
+            <p data-i18n="orientation1">
               3LABABEE AI aims to preserve the original viewing
               angle and direction of your uploaded product.
             </p>
 
-            <p>
-              For example, if you upload a shoe with its heel on
-              the right and its toe pointing left, the generated
+            <p data-i18n="orientation2">
+              For example, if you upload a shoe with its heel
+              on the right and its toe pointing left, the generated
               advertisement will generally maintain that orientation.
             </p>
 
-            <p>
+            <p data-i18n="orientation3">
               Choose the product angle and direction you want
               to appear in your final advertisement.
             </p>
@@ -158,10 +236,13 @@
           </div>
 
           <!-- AI DISCLAIMER -->
-          <p class="tips-note">
-            Please note: AI-generated results may vary and may alter
-            small text, logos, or packaging details. Always review
-            your final advertisement before publishing.
+          <p
+            class="tips-note"
+            data-i18n="disclaimer"
+          >
+            Please note: AI-generated results may vary and may
+            alter small text, logos, or packaging details.
+            Always review your final advertisement before publishing.
           </p>
 
         </div>
@@ -169,21 +250,24 @@
 
       <!-- PRESERVE BRAND -->
       <label class="check-row">
+
         <input
           id="preserveBrand"
           type="checkbox"
           checked
         />
 
-        <span>
+        <span data-i18n="preserveLabel">
           Preserve original logo, text and QR card exactly
         </span>
+
       </label>
 
       <!-- GENERATE BUTTON -->
       <button
         id="generateBtn"
         class="primary"
+        data-i18n="generateBtn"
         disabled
       >
         Generate with 3LABABEE
@@ -193,16 +277,21 @@
 
       <!-- QR UPLOAD -->
       <label class="upload">
-        <span>2. Product QR · untouched</span>
+
+        <span data-i18n="qrLabel">
+          2. Product QR · untouched
+        </span>
 
         <input
           id="qrInput"
           type="file"
           accept="image/png,image/jpeg,image/webp"
         />
+
       </label>
 
-      <p class="hint">
+      <!-- QR DESCRIPTION -->
+      <p class="hint" data-i18n="qrHint">
         The QR is composited directly in the browser after AI
         generation, so its pattern is never regenerated.
       </p>
@@ -211,7 +300,9 @@
       <div class="qr-controls">
 
         <label>
-          QR size
+          <span data-i18n="qrSize">
+            QR size
+          </span>
 
           <input
             id="qrScale"
@@ -223,7 +314,9 @@
         </label>
 
         <label>
-          Horizontal
+          <span data-i18n="horizontal">
+            Horizontal
+          </span>
 
           <input
             id="qrX"
@@ -235,7 +328,9 @@
         </label>
 
         <label>
-          Vertical
+          <span data-i18n="vertical">
+            Vertical
+          </span>
 
           <input
             id="qrY"
@@ -251,13 +346,19 @@
       <!-- ACTION BUTTONS -->
       <div class="button-row">
 
-        <button id="resetQrBtn">
+        <button
+          id="resetQrBtn"
+          type="button"
+          data-i18n="resetQr"
+        >
           Reset QR
         </button>
 
         <button
           id="downloadBtn"
           class="primary"
+          type="button"
+          data-i18n="downloadBtn"
           disabled
         >
           Download PNG
@@ -266,7 +367,11 @@
       </div>
 
       <!-- STATUS -->
-      <div id="status" class="status">
+      <div
+        id="status"
+        class="status"
+        data-i18n="initialStatus"
+      >
         Upload a product image to start.
       </div>
 
@@ -275,12 +380,19 @@
 
     </section>
 
-    <!-- RIGHT SIDE: FINAL PREVIEW -->
+    <!-- RIGHT PANEL: FINAL PREVIEW -->
     <section class="preview card">
 
       <div class="preview-head">
-        <strong>Final Post Preview</strong>
-        <span>1:1 · 1024 × 1024 export</span>
+
+        <strong data-i18n="previewTitle">
+          Final Post Preview
+        </strong>
+
+        <span data-i18n="previewSize">
+          1:1 · 1024 × 1024 export
+        </span>
+
       </div>
 
       <canvas
@@ -293,6 +405,11 @@
 
   </main>
 
+  <!-- APPLICATION LOGIC -->
   <script src="/app.js"></script>
+
+  <!-- ARABIC / ENGLISH TRANSLATIONS -->
+  <script src="/i18n.js"></script>
+
 </body>
 </html>

@@ -26,7 +26,7 @@ body {
    ========================================= */
 
 .layout {
-  width: min(100% - 48px, 1240px);
+  width: min(calc(100% - 48px), 1240px);
   min-height: 100vh;
 
   display: grid;
@@ -491,7 +491,7 @@ input[type="range"] {
 
 @media (max-width: 480px) {
   .layout {
-    width: calc(100% - 24px);
+    width: min(calc(100% - 28px), 680px);
     gap: 14px;
     padding: 12px 0 24px;
   }
@@ -524,5 +524,125 @@ input[type="range"] {
 
   .preview-head {
     font-size: 11px;
+  }
+}
+
+/* =========================================
+   3LABABEE LANGUAGE SWITCHER
+   ========================================= */
+
+.brand-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.brand-header .app-brand {
+  flex: 1 1 220px;
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+.language-switcher {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 4px;
+  padding: 4px;
+  background: #f1f3f9;
+  border: 1px solid #e5eaf3;
+  border-radius: 12px;
+}
+
+.lang-btn {
+  border: none;
+  border-radius: 9px;
+  padding: 9px 12px;
+  background: transparent;
+  color: #68708a;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.lang-btn:hover:not(.active) {
+  background: #e5eaf3;
+}
+
+.lang-btn.active,
+.lang-btn.active:hover {
+  background: #24255f;
+  color: #ffffff;
+}
+
+/* =========================================
+   ARABIC TYPOGRAPHY AND RTL
+   ========================================= */
+
+html[lang="ar"] {
+  font-family: "Cairo", Inter, sans-serif;
+}
+
+html[dir="rtl"] .controls {
+  text-align: right;
+}
+
+html[dir="rtl"] .upload-tips-content ul {
+  padding-left: 0;
+  padding-right: 20px;
+}
+
+html[dir="rtl"] .orientation-note {
+  border-left: none;
+  border-right: 3px solid #24255f;
+}
+
+html[dir="rtl"] .app-brand {
+  align-items: flex-start;
+}
+
+html[dir="rtl"] .preview-head {
+  direction: rtl;
+}
+
+html[dir="rtl"] .check-row {
+  direction: rtl;
+}
+
+html[dir="rtl"] .status,
+html[dir="rtl"] .cost {
+  text-align: right;
+}
+
+/* Keep technical values readable */
+html[dir="rtl"] #modelSelect,
+html[dir="rtl"] #resolutionSelect {
+  text-align: right;
+}
+
+/* =========================================
+   RESPONSIVE LANGUAGE SWITCHER
+   ========================================= */
+
+@media (max-width: 480px) {
+  .brand-header {
+    gap: 12px;
+  }
+
+  .brand-header .app-brand {
+    flex-basis: 100%;
+  }
+
+  .language-switcher {
+    margin-top: 2px;
+  }
+
+  .lang-btn {
+    padding: 8px 12px;
   }
 }
