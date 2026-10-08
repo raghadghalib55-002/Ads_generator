@@ -70,7 +70,10 @@ PRODUCT FIDELITY — HIGHEST PRIORITY:
 - Do NOT simplify fine details.
 - Do NOT add or remove product parts.
 - Do NOT duplicate the product.
-- There must be exactly ONE product in the final advertisement.
+- Preserve the exact number of physical items shown in REFERENCE 2.
+- If the uploaded image contains a pair, preserve both items.
+- If it contains a product set or bundle, preserve its original components.
+- Do not invent, duplicate, omit, or merge items.
 
 IMPORTANT:
 Product fidelity is more important than creating a dramatic new viewing angle.
@@ -99,6 +102,58 @@ DO NOT:
 - Create reflections that look like a second product.
 - Create a second copy of the product.
 - Place any part of the product outside the intended right-side display zone.
+
+
+PRODUCT COUNT AND ARRANGEMENT — CRITICAL:
+
+Analyze REFERENCE 2 and identify all distinct physical
+items belonging to the uploaded product or product set.
+
+Preserve the original item count.
+
+If the uploaded product is a pair of shoes:
+- Keep both shoes.
+- Arrange them naturally side by side or slightly staggered.
+- Both shoes must physically rest on the marble pedestal.
+- Both shoes must have realistic contact shadows.
+- Keep their proportions and distinctive details unchanged.
+- Do not make either shoe float or levitate.
+- Do not stack shoes in an unstable position.
+- Do not create unrealistic intersections or overlapping soles.
+
+PHYSICAL REALISM — MANDATORY:
+
+Every product must have visible physical support.
+
+All items must rest naturally on the pedestal surface.
+
+No floating, levitating, hovering, or suspended objects.
+
+Match the pedestal perspective and studio lighting.
+
+Create soft, realistic contact shadows exactly where
+each product touches the supporting surface.
+
+TEMPLATE FIT:
+
+Arrange all items within the designated right-side
+product display area.
+
+Keep every item fully visible whenever possible.
+
+Scale the complete product group proportionally
+to fit the available pedestal space.
+
+Never overlap the protected text or QR card area.
+
+If multiple items do not fit naturally, reduce their
+overall scale or rearrange them rather than floating
+one item above another.
+
+PRIORITY:
+
+Natural, physically believable product placement
+takes priority over dramatic or artistic composition.
 
 TEMPLATE — CRITICAL:
 - Preserve the master template composition.
@@ -129,8 +184,9 @@ product accurately, ALWAYS choose product accuracy.
 
 OUTPUT:
 - One square 1:1 advertisement.
-- Exactly one product.
-- No generated QR code.
+- Preserve the original product or product-set item count.
+- All items must have natural physical support.
+- No floating products.- No generated QR code.
 - No watermark.
 - No additional captions.
 - No invented text.
