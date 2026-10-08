@@ -1,74 +1,218 @@
+
+/* =========================================
+   3LABABEE AI Product Post Generator
+   ========================================= */
+
 :root {
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: Inter, ui-sans-serif, system-ui,
+    -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+
   color: #24255f;
   background: #f4f2ed;
 }
-* { box-sizing: border-box; }
-body { margin: 0; }
-.layout {
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
   min-height: 100vh;
+}
+
+/* =========================================
+   MAIN LAYOUT
+   ========================================= */
+
+.layout {
+  width: min(100% - 48px, 1240px);
+  min-height: 100vh;
+
   display: grid;
-  grid-template-columns: 405px minmax(0, 1fr);
-  gap: 26px;
-  padding: 26px;
+  grid-template-columns:
+    minmax(360px, 440px)
+    minmax(0, 1fr);
+
+  align-items: start;
+  justify-content: center;
+
+  gap: 28px;
+  margin: 0 auto;
+  padding: 28px 0 48px;
 }
+
+/* =========================================
+   CARDS
+   ========================================= */
+
 .card {
-  background: rgba(255,255,255,.96);
+  min-width: 0;
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid rgba(36, 37, 95, 0.06);
   border-radius: 22px;
-  box-shadow: 0 14px 46px rgba(36,37,95,.09);
-  border: 1px solid rgba(36,37,95,.05);
+  box-shadow: 0 14px 46px rgba(36, 37, 95, 0.08);
 }
+
+/* =========================================
+   LEFT PANEL
+   ========================================= */
+
 .controls {
-  padding: 24px;
+  width: 100%;
+  padding: 28px;
   align-self: start;
-  position: sticky;
-  top: 26px;
 }
-.brand-line {
-  color: #b98a4c;
-  font-weight: 850;
-  letter-spacing: .18em;
+
+/* =========================================
+   BRAND AND LOGO
+   ========================================= */
+
+.app-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.app-logo {
+  display: block;
+  width: 210px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.app-brand-text {
+  width: 100%;
+}
+
+.app-brand-text h1 {
+  margin: 0 0 7px;
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: 750;
+  letter-spacing: -0.5px;
+  color: #24255f;
+}
+
+.app-brand-text p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #8490a6;
+}
+
+/* =========================================
+   INTRODUCTION
+   ========================================= */
+
+.intro {
+  margin: 0 0 25px;
+  color: #68708a;
+  line-height: 1.75;
+  font-size: 13px;
+}
+
+.hint {
+  color: #68708a;
+  line-height: 1.6;
   font-size: 12px;
 }
-h1 { margin: 7px 0 8px; font-size: 25px; }
-.intro, .hint {
-  color: #68708a;
-  line-height: 1.55;
-  font-size: 13.5px;
-}
-.field, .upload {
+
+/* =========================================
+   FORM FIELDS
+   ========================================= */
+
+.field,
+.upload {
   display: grid;
-  gap: 8px;
-  font-weight: 760;
-  margin: 18px 0 11px;
+  gap: 9px;
+  font-size: 13px;
+  font-weight: 700;
+  margin: 17px 0 13px;
 }
-select, input[type="file"] {
+
+select,
+input[type="file"] {
+  width: 100%;
+  min-width: 0;
   border: 1px solid #dadde7;
   border-radius: 12px;
-  padding: 11px;
-  width: 100%;
+  padding: 12px;
   background: #fbfbfc;
   color: #24255f;
+  font-family: inherit;
+  font-size: 12px;
 }
+
+select:focus,
+input[type="file"]:focus-visible {
+  outline: 2px solid #3dbff0;
+  outline-offset: 2px;
+}
+
+/* =========================================
+   BUTTONS
+   ========================================= */
+
 button {
   border: 1px solid #d6d9e4;
-  background: #fff;
+  background: #ffffff;
   color: #24255f;
   border-radius: 12px;
-  padding: 11px 14px;
+  padding: 12px 15px;
   cursor: pointer;
-  font-weight: 760;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  transition: background 0.2s ease,
+              box-shadow 0.2s ease;
 }
+
+button:hover:not(:disabled) {
+  background: #f1f3fa;
+}
+
 button.primary {
   background: #24255f;
-  color: #fff;
+  color: #ffffff;
   border-color: #24255f;
 }
-button:disabled { opacity: .45; cursor: not-allowed; }
-#generateBtn { width: 100%; margin-top: 10px; }
-.divider { height: 1px; background: #e8e8ed; margin: 23px 0; }
+
+button.primary:hover:not(:disabled) {
+  background: #33357b;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+#generateBtn {
+  width: 100%;
+  margin-top: 14px;
+  padding: 14px;
+  font-size: 13px;
+}
+
+/* =========================================
+   DIVIDER
+   ========================================= */
+
+.divider {
+  height: 1px;
+  background: #e8e8ed;
+  margin: 25px 0;
+}
+
+/* =========================================
+   PRODUCT IMAGE PREVIEW
+   ========================================= */
+
 .mini-preview {
-  height: 122px;
+  height: 125px;
   border: 1px solid #eee5d7;
   background: #fbf8f2;
   border-radius: 14px;
@@ -76,111 +220,309 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   place-items: center;
   overflow: hidden;
 }
-.mini-preview img { width: 100%; height: 100%; object-fit: contain; }
-.hidden { display: none !important; }
-.check-row {
-  display: flex;
-  gap: 9px;
-  align-items: flex-start;
-  margin: 15px 0 8px;
-  font-size: 12.5px;
-  color: #59617a;
-  line-height: 1.4;
-}
-.check-row input { margin-top: 2px; }
-.qr-controls { display: grid; gap: 12px; margin: 15px 0; }
-.qr-controls label { display: grid; gap: 5px; font-size: 12px; font-weight: 700; }
-input[type="range"] { width: 100%; }
-.button-row { display: flex; gap: 10px; }
-.button-row button { flex: 1; }
-.status, .cost {
-  margin-top: 15px;
-  background: #f5f6fa;
-  border-radius: 12px;
-  padding: 11px 12px;
-  color: #56607a;
-  font-size: 13px;
-  line-height: 1.45;
-}
-.status.error { background: #fff1f1; color: #9c3434; }
-.status.success { background: #eff8f2; color: #2f6840; }
-.cost { margin-top: 8px; background: #fff9ef; color: #815e2c; }
-.preview {
-  padding: 18px;
-  width: min(100%, 780px);
-  justify-self: center;
-  align-self: start;
-}
-.preview-head {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  color: #68708a;
-  font-size: 13px;
-  padding: 3px 3px 13px;
-}
-canvas {
+
+.mini-preview img {
   width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 15px;
-  background: #eee;
-}
-@media (max-width: 900px) {
-  .layout { grid-template-columns: 1fr; padding: 14px; }
-  .controls { position: static; }
+  height: 100%;
+  object-fit: contain;
 }
 
+.hidden {
+  display: none !important;
+}
 
-/* Product Photo Tips */
+/* =========================================
+   PRODUCT PHOTO TIPS
+   ========================================= */
 
 .upload-tips {
-  margin: 16px 0;
-  padding: 16px;
-  background: #f7f8fc;
-  border: 1px solid #e4e7f0;
+  margin: 16px 0 20px;
+  padding: 0;
+  background: #f7f9fd;
+  border: 1px solid #e5eaf3;
   border-radius: 12px;
+  overflow: hidden;
 }
 
 .upload-tips summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  padding: 15px 16px;
   cursor: pointer;
+  list-style: none;
+}
+
+.upload-tips summary::-webkit-details-marker {
+  display: none;
+}
+
+.tips-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
   color: #24255f;
-  font-size: 14px;
-  font-weight: 600;
+}
+
+.tips-summary-hint {
+  display: inline-block;
+  margin: 0;
+  font-size: 11px;
+  font-weight: 500;
+  color: #8490a6;
+}
+
+.upload-tips[open] .tips-summary-hint {
+  display: none;
+}
+
+.upload-tips[open] summary {
+  border-bottom: 1px solid #e5eaf3;
 }
 
 .upload-tips-content {
-  padding-top: 12px;
+  padding: 16px;
 }
 
 .upload-tips-content p,
 .upload-tips-content li {
-  font-size: 13px;
-  line-height: 1.7;
-  color: #4b5563;
+  color: #596579;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.upload-tips-content p {
+  margin: 0 0 12px;
 }
 
 .upload-tips-content ul {
   padding-left: 20px;
+  margin: 12px 0;
 }
 
 .upload-tips-content li {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
+/* =========================================
+   PRODUCT ORIENTATION
+   ========================================= */
+
 .orientation-note {
-  margin-top: 14px;
-  padding: 12px;
+  margin-top: 18px;
+  padding: 15px;
   background: #eef5ff;
   border-left: 3px solid #24255f;
   border-radius: 8px;
 }
 
 .orientation-note strong {
+  display: block;
   color: #24255f;
+  font-size: 12px;
+  line-height: 1.6;
 }
 
-.tips-note {
-  margin-top: 12px;
-  color: #8a5b30 !important;
+.orientation-note p {
+  margin: 9px 0 0;
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+.upload-tips-content .tips-note {
+  margin: 15px 0 0;
+  color: #8a5b30;
+  font-size: 11px;
+}
+
+/* =========================================
+   PRESERVE BRAND CHECKBOX
+   ========================================= */
+
+.check-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 16px 0 10px;
+  color: #59617a;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.check-row input {
+  margin-top: 3px;
+  accent-color: #24255f;
+}
+
+/* =========================================
+   QR CONTROLS
+   ========================================= */
+
+.qr-controls {
+  display: grid;
+  gap: 14px;
+  margin: 18px 0;
+}
+
+.qr-controls label {
+  display: grid;
+  gap: 7px;
+  color: #24255f;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: #24255f;
+}
+
+/* =========================================
+   ACTION BUTTONS
+   ========================================= */
+
+.button-row {
+  display: flex;
+  gap: 10px;
+}
+
+.button-row button {
+  flex: 1;
+  min-width: 0;
+}
+
+/* =========================================
+   STATUS AND COST
+   ========================================= */
+
+.status,
+.cost {
+  margin-top: 15px;
+  background: #f5f6fa;
+  border-radius: 12px;
+  padding: 12px 13px;
+  color: #56607a;
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.status.error {
+  background: #fff1f1;
+  color: #9c3434;
+}
+
+.status.success {
+  background: #eff8f2;
+  color: #2f6840;
+}
+
+.cost {
+  margin-top: 8px;
+  background: #fff9ef;
+  color: #815e2c;
+}
+
+/* =========================================
+   RIGHT PANEL - FINAL PREVIEW
+   ========================================= */
+
+.preview {
+  width: 100%;
+  min-width: 0;
+  padding: 18px;
+  align-self: start;
+}
+
+.preview-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 3px 3px 13px;
+  color: #68708a;
+  font-size: 12px;
+}
+
+.preview-head strong {
+  color: #24255f;
+  font-size: 13px;
+}
+
+#finalCanvas {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 15px;
+  background: #eee;
+}
+
+/* =========================================
+   TABLET
+   ========================================= */
+
+@media (max-width: 900px) {
+  .layout {
+    width: min(100% - 28px, 680px);
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+    padding: 14px 0 30px;
+  }
+
+  .controls {
+    position: static;
+  }
+
+  .app-logo {
+    width: 190px;
+  }
+}
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 480px) {
+  .layout {
+    width: calc(100% - 24px);
+    gap: 14px;
+    padding: 12px 0 24px;
+  }
+
+  .controls,
+  .preview {
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .app-logo {
+    width: 170px;
+  }
+
+  .app-brand-text h1 {
+    font-size: 21px;
+  }
+
+  .upload-tips summary {
+    padding: 13px;
+  }
+
+  .tips-title {
+    font-size: 12px;
+  }
+
+  .tips-summary-hint {
+    font-size: 10px;
+  }
+
+  .preview-head {
+    font-size: 11px;
+  }
 }
