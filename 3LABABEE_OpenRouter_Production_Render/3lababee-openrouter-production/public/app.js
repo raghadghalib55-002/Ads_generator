@@ -307,7 +307,7 @@ generateBtn.addEventListener("click", async () => {
   generateBtn.disabled = true;
   downloadBtn.disabled = true;
   costEl.classList.add("hidden");
-  setStatus("OpenRouter is merging the product into the fixed 3LABABEE template…");
+  setStatus("3LABABEE AI is creating your advertisement…");
 
   try {
     const form = new FormData();
@@ -333,8 +333,8 @@ generateBtn.addEventListener("click", async () => {
     if (cost) {
       const value = Number(cost);
       costEl.textContent = Number.isFinite(value)
-        ? `OpenRouter generation cost: $${value.toFixed(4)}`
-        : `OpenRouter generation cost: $${cost}`;
+        ? `Generation cost: $${value.toFixed(4)}`
+        : `Generation cost: $${cost}`;
       costEl.classList.remove("hidden");
     }
 
