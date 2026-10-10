@@ -18,6 +18,33 @@ const preserveBrand = document.getElementById("preserveBrand");
 const canvas = document.getElementById("finalCanvas");
 const ctx = canvas.getContext("2d");
 
+
+const BASE_SIZE = 1024;
+
+let generatedResolution = null;
+
+function updateExportResolution() {
+  const width = aiPosterImage?.naturalWidth || BASE_SIZE;
+  const height = aiPosterImage?.naturalHeight || BASE_SIZE;
+
+  if (canvas.width !== width || canvas.height !== height) {
+    canvas.width = width;
+    canvas.height = height;
+  }
+
+  const label = document.getElementById("exportResolution");
+
+  if (label) {
+    label.textContent = `1:1 · ${width} × ${height} export`;
+  }
+
+  generatedResolution = {
+    width,
+    height,
+    requested: resolutionSelect.value
+  };
+}
+
 // Coordinates are for the current text-free 3LABABEE master template
 // (measured directly from public/template.png card border pixels, scaled to
 // the 1024x1024 canvas). The card is now a plain empty rounded box (no
@@ -200,8 +227,11 @@ function drawContain(img, box, scale = 1, dx = 0, dy = 0) {
   ctx.drawImage(img, x, y, width, height);
 }
 
+
 function drawExactTemplateRegions() {
-  if (!templateImage.complete || !templateImage.naturalWidth) return;
+  if (!templateImage.complete || !templateImage.naturalWidth) {
+    return;
+  }
 
   for (const r of BRAND_REGIONS) {
     const sx = r.x * templateImage.naturalWidth;
@@ -209,29 +239,56 @@ function drawExactTemplateRegions() {
     const sw = r.w * templateImage.naturalWidth;
     const sh = r.h * templateImage.naturalHeight;
 
-    const dx = r.x * canvas.width;
-    const dy = r.y * canvas.height;
-    const dw = r.w * canvas.width;
-    const dh = r.h * canvas.height;
+    // Draw in the original 1024x1024 coordinate space.
+    // The render() transform handles export scaling.
+    const dx = r.x * BASE_SIZE;
+    const dy = r.y * BASE_SIZE;
+    const dw = r.w * BASE_SIZE;
+    const dh = r.h * BASE_SIZE;
 
-    ctx.drawImage(templateImage, sx, sy, sw, sh, dx, dy, dw, dh);
+    ctx.drawImage(
+      templateImage,
+      sx, sy, sw, sh,
+      dx, dy, dw, dh
+    );
   }
 }
 
-function render() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+
+function render() {
+  const width = canvas.width;
+  const height = canvas.height;
+
+  // Reset transformation before clearing.
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.clearRect(0, 0, width, height);
+
+  // Draw AI image at its actual resolution.
   const base = aiPosterImage || templateImage;
+
   if (base?.complete && base.naturalWidth) {
-    ctx.drawImage(base, 0, 0, canvas.width, canvas.height);
+    ctx.drawImage(base, 0, 0, width, height);
   }
 
-  // Re-apply exact non-product brand areas from the original master template.
+  // Use the original 1024x1024 design coordinates.
+  ctx.save();
+
+  ctx.setTransform(
+    width / BASE_SIZE,
+    0,
+    0,
+    height / BASE_SIZE,
+    0,
+    0
+  );
+
+  // Restore protected branding regions.
   if (aiPosterImage && preserveBrand.checked) {
     drawExactTemplateRegions();
   }
 
-  // QR is direct from the uploaded QR file, drawn before the text layer.
+  // Add the original QR image.
   if (qrImage) {
     drawContain(
       qrImage,
@@ -242,14 +299,19 @@ function render() {
     );
   }
 
-  // Text is code-controlled (see TEXT_LAYERS above) and always drawn last,
-  // regardless of the template/AI image, so it's never baked into template.png.
+  // Draw typography at the export resolution.
   if (fontsReady) {
     drawAllTextLayers();
   }
 
+  ctx.restore();
+
+  // Always leave the canvas transform reset.
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+
   downloadBtn.disabled = !aiPosterImage;
 }
+
 
 function updateModelUi() {
   const model = modelSelect.value;
@@ -326,8 +388,21 @@ generateBtn.addEventListener("click", async () => {
       throw new Error(errorData.message || `Generation failed (${response.status}).`);
     }
 
+    
     const resultBlob = await response.blob();
     aiPosterImage = await blobToImage(resultBlob);
+
+    // Match export dimensions to the actual AI output.
+    updateExportResolution();
+
+    console.log("Requested resolution:", resolutionSelect.value);
+    console.log(
+      "Actual AI resolution:",
+      aiPosterImage.naturalWidth,
+      "x",
+      aiPosterImage.naturalHeight
+    );
+
 
     const cost = response.headers.get("X-OpenRouter-Cost");
     if (cost) {
@@ -365,10 +440,43 @@ resetQrBtn.addEventListener("click", () => {
   render();
 });
 
-downloadBtn.addEventListener("click", () => {
-  render();
-  const link = document.createElement("a");
-  link.download = "3lababee-product-post.png";
-  link.href = canvas.toDataURL("image/png");
-  link.click();
+
+downloadBtn.addEventListener("click", async () => {
+  if (!aiPosterImage) return;
+
+  try {
+    render();
+
+    const blob = await new Promise((resolve, reject) => {
+      canvas.toBlob(
+        (result) => {
+          if (result) resolve(result);
+          else reject(new Error("PNG export failed."));
+        },
+        "image/png"
+      );
+    });
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.download =
+      `3lababee-product-post-${canvas.width}x${canvas.height}.png`;
+
+    link.href = url;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+    setStatus(
+      `PNG exported successfully: ${canvas.width} × ${canvas.height}`,
+      "success"
+    );
+  } catch (error) {
+    console.error(error);
+    setStatus(error.message || "Export failed.", "error");
+  }
 });
+

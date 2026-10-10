@@ -299,9 +299,21 @@ app.post("/api/generate-post", upload.single("product"), async (req, res) => {
     const mediaType = item?.media_type || "image/png";
     const cost = result?.usage?.cost;
 
+    console.log("========== IMAGE GENERATION ==========");
+    console.log("Model:", model);
+    console.log("Requested resolution:", resolution);
+    console.log("OpenRouter image metadata:", {
+      media_type: item?.media_type,
+      width: item?.width,
+      height: item?.height,
+      revised_prompt: item?.revised_prompt
+    });
+    console.log("======================================"); 
+
     res.setHeader("Content-Type", mediaType);
     res.setHeader("Cache-Control", "no-store");
     res.setHeader("X-3LABABEE-Model", model);
+    res.setHeader("X-3LABABEE-Requested-Resolution", resolution);
     if (cost !== undefined && cost !== null) {
       res.setHeader("X-OpenRouter-Cost", String(cost));
     }
