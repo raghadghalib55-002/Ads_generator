@@ -273,7 +273,11 @@ app.post("/api/generate-post", upload.single("product"), async (req, res) => {
     } catch {
       result = null;
     }
+    console.log("OpenRouter HTTP status:", openRouterResponse.status);
 
+    if (!openRouterResponse.ok) {
+      console.error("OpenRouter error response:", responseText.slice(0, 2000));
+    }
     if (!openRouterResponse.ok) {
       const message =
         result?.error?.message ||
