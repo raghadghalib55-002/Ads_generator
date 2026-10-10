@@ -13,6 +13,16 @@ const PORT = process.env.PORT || 3000;
 const APP_URL = process.env.APP_URL || `http://localhost:${PORT}`;
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/images";
 const TEMPLATE_PATH = path.join(__dirname, "public", "template.png");
+const MAX_CONCURRENT_GENERATIONS = 2;
+const GENERATION_TIMEOUT_MS = 120_000;
+let activeGenerations = 0;
+
+function detectImageMime(buffer) {
+  if (buffer.length >= 8 && buffer.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) return "image/png";
+  if (buffer.length >= 3 && buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff) return "image/jpeg";
+  if (buffer.length >= 12 && buffer.toString("ascii", 0, 4) === "RIFF" && buffer.toString("ascii", 8, 12) === "WEBP") return "image/webp";
+  return null;
+}
 
 const upload = multer({
   storage: multer.memoryStorage(),
@@ -209,15 +219,24 @@ app.get("/api/config", (_req, res) => {
 });
 
 app.post("/api/generate-post", upload.single("product"), async (req, res) => {
+  if (activeGenerations >= MAX_CONCURRENT_GENERATIONS) {
+    return res.status(503).json({ code: "server_busy", message: "Image generation is busy. Please try again later." });
+  }
+  activeGenerations += 1;
   try {
     if (!req.file) {
       return res.status(400).json({ code: "missing_product", message: "Please upload a product image." });
     }
 
+    const detectedMime = detectImageMime(req.file.buffer);
+    if (!detectedMime || detectedMime !== req.file.mimetype) {
+      return res.status(400).json({ code: "invalid_image", message: "Please upload a valid PNG, JPEG or WebP image." });
+    }
+
     if (!process.env.OPENROUTER_API_KEY) {
       return res.status(503).json({
         code: "missing_api_key",
-        message: "OPENROUTER_API_KEY is not configured in the .env file.",
+        message: "Image generation is not configured. Please contact support.",
       });
     }
 
@@ -242,11 +261,12 @@ app.post("/api/generate-post", upload.single("product"), async (req, res) => {
     const templateDataUrl = toDataUrl(templateBuffer, "image/png");
     const productDataUrl = toDataUrl(
       req.file.buffer,
-      req.file.mimetype || "image/png"
+      detectedMime
     );
 
     const openRouterResponse = await fetch(OPENROUTER_URL, {
       method: "POST",
+      signal: AbortSignal.timeout(GENERATION_TIMEOUT_MS),
       headers: {
         Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
         "Content-Type": "application/json",
@@ -276,18 +296,13 @@ app.post("/api/generate-post", upload.single("product"), async (req, res) => {
     console.log("OpenRouter HTTP status:", openRouterResponse.status);
 
     if (!openRouterResponse.ok) {
-      console.error("OpenRouter error response:", responseText.slice(0, 2000));
+      console.error("OpenRouter request failed:", openRouterResponse.status);
     }
     if (!openRouterResponse.ok) {
-      const message =
-        result?.error?.message ||
-        result?.message ||
-        responseText ||
-        `OpenRouter request failed (${openRouterResponse.status}).`;
-
-      return res.status(openRouterResponse.status).json({
-        code: result?.error?.code || "openrouter_error",
-        message,
+      const status = openRouterResponse.status === 429 ? 429 : 502;
+      return res.status(status).json({
+        code: status === 429 ? "provider_rate_limited" : "generation_provider_error",
+        message: status === 429 ? "The image provider is busy. Please try again later." : "Image generation is temporarily unavailable. Please try again later.",
       });
     }
 
@@ -309,8 +324,7 @@ app.post("/api/generate-post", upload.single("product"), async (req, res) => {
     console.log("OpenRouter image metadata:", {
       media_type: item?.media_type,
       width: item?.width,
-      height: item?.height,
-      revised_prompt: item?.revised_prompt
+      height: item?.height
     });
     console.log("======================================"); 
 
@@ -325,10 +339,12 @@ app.post("/api/generate-post", upload.single("product"), async (req, res) => {
     res.send(Buffer.from(b64, "base64"));
   } catch (error) {
     console.error("OpenRouter image generation error:", error);
-    return res.status(500).json({
-      code: "generation_failed",
-      message: error?.message || "The AI could not generate the product post.",
+    return res.status(error?.name === "TimeoutError" ? 504 : 502).json({
+      code: error?.name === "TimeoutError" ? "generation_timeout" : "generation_failed",
+      message: "Image generation failed or timed out. Please try again later.",
     });
+  } finally {
+    activeGenerations -= 1;
   }
 });
 
