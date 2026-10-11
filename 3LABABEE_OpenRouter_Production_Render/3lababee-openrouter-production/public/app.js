@@ -1,4 +1,5 @@
 const productInput = document.getElementById("productInput");
+const productTypeSelect = document.getElementById("productTypeSelect");
 const qrInput = document.getElementById("qrInput");
 const generateBtn = document.getElementById("generateBtn");
 const downloadBtn = document.getElementById("downloadBtn");
@@ -374,6 +375,7 @@ generateBtn.addEventListener("click", async () => {
   try {
     const form = new FormData();
     form.append("product", productFile);
+    form.append("productType", productTypeSelect.value);
     form.append("model", modelSelect.value);
     form.append("resolution", resolutionSelect.value);
 

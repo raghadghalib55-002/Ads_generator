@@ -203,6 +203,15 @@ OUTPUT:
 `;
 
 
+const PRODUCT_PROMPTS = {
+  "shoes": "FOOTWEAR: Identify whether the upload shows one shoe, a pair, or a footwear set. Preserve exactly that item count, sole construction, laces, straps, stitching and textures. Arrange pairs side by side or slightly staggered on the same pedestal; both shoes must touch the surface with contact shadows. Never levitate, unnaturally stack, distort or duplicate footwear.",
+  "pants": "TROUSERS/PANTS: Extract the trousers alone, removing any model, legs, skin, shoes, unrelated garments and background. Present as a realistic standalone invisible-mannequin garment. Preserve waistband, pockets, fly, seams, original fit, fabric and hem details. Show the full length from waistband to hems; align hems naturally with the pedestal with believable support and shadows.",
+  "blouse": "TOP/SHIRT/BLOUSE: Extract only the garment, removing people, skin, unrelated clothes, mannequins, shopping UI and background. Present as a photorealistic standalone invisible-mannequin garment with natural volume and folds. Preserve the actual neckline, collar if present, sleeves, buttons, fit, fabric, patterns and construction. Keep the garment entirely in the right display area and visually grounded on the pedestal.",
+  "bag": "BAG/HANDBAG: Extract only the bag, removing people, hands, unrelated garments and background. Preserve exact silhouette, material, handles, straps, chains, stitching, zippers, closures and hardware. Arrange straps naturally according to the uploaded design. Position the bag base directly on the pedestal with realistic contact shadow, keeping all parts visible.",
+  "other": "OTHER PRODUCT: Identify the actual uploaded item or set. Preserve its exact count, components, shape, color, proportions, textures, labels and details. Remove irrelevant surroundings and display the product naturally on the right-side pedestal. Arrange multiple items without floating, unrealistic stacking or collisions."
+};
+const PRODUCT_TYPES = new Set(Object.keys(PRODUCT_PROMPTS));
+
 function toDataUrl(buffer, mimeType = "image/png") {
   return `data:${mimeType};base64,${buffer.toString("base64")}`;
 }
@@ -244,6 +253,11 @@ app.post("/api/generate-post", upload.single("product"), async (req, res) => {
       return res.status(500).json({ code: "missing_template", message: "public/template.png was not found." });
     }
 
+    const productType = req.body.productType;
+    if (!PRODUCT_TYPES.has(productType)) {
+      return res.status(400).json({ code: "invalid_product_type", message: "Please select a valid product type." });
+    }
+
     const model = ALLOWED_MODELS.has(req.body.model)
       ? req.body.model
       : "google/gemini-3.1-flash-image";
@@ -275,7 +289,7 @@ app.post("/api/generate-post", upload.single("product"), async (req, res) => {
       },
       body: JSON.stringify({
         model,
-        prompt: MERGE_PROMPT,
+        prompt: MERGE_PROMPT + "\nCATEGORY-SPECIFIC PRODUCT COMPOSITING:\nUse IMAGE 1 as the fixed square 3LABABEE master template and IMAGE 2 as the actual uploaded product. Preserve the template's layout, gold circle, pedestal, background, botanical shadows and protected left-side content. Preserve the exact product identity, colors, materials, logos, shape and number of items as shown in IMAGE 2; never infer a specific color or style. Remove source background, people, unrelated items and shopping UI. Keep the complete product inside the right-side display area without overlapping left-side text or the QR card. Use warm studio lighting, natural scale and realistic contact shadows. No floating or unsupported objects. Do not generate QR codes, labels, text or branding. Leave the QR card empty; the user's real QR is composited later in the browser.\n" + "\n" + PRODUCT_PROMPTS[productType],
         input_references: [
           { type: "image_url", image_url: { url: templateDataUrl } },
           { type: "image_url", image_url: { url: productDataUrl } },
