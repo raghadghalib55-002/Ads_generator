@@ -30,6 +30,7 @@ try {
   const png = Uint8Array.from([137,80,78,71,13,10,26,10,0,0,0,0]);
   const form = new FormData();
   form.append("product", new Blob([png], { type: "image/png" }), "test.png");
+  form.append("productType", "shoes");
   const started = Date.now();
   const response = await fetch(`${base}/api/generate-post`, { method: "POST", body: form });
   const body = await response.json();
