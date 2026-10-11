@@ -1,13 +1,13 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { setTimeout as sleep } from "node:timers/promises";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import path from "node:path";
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const port = 32000 + Math.floor(Math.random() * 10000);
 const base = `http://127.0.0.1:${port}`;
-const server = spawn(process.execPath, ["--import", path.join(root, "mock-timeout.mjs"), "server.js"], {
+const server = spawn(process.execPath, ["--import", pathToFileURL(path.join(root, "mock-timeout.mjs")).href, "server.js"], {
   env: { ...process.env, PORT: String(port), OPENROUTER_API_KEY: "fake-test-key" },
   stdio: ["ignore", "pipe", "pipe"],
 });
