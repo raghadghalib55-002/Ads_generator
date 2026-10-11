@@ -20,9 +20,9 @@ The interface supports English and Arabic (RTL). The application package is vers
 
 ## How it works
 
-1. Upload a PNG, JPEG or WebP product photo, then select a model and requested resolution.
+1. Select a product category (Shoes, Pants, Blouse / Shirt, Bag, or Other), upload a PNG, JPEG or WebP product photo, then select a model and requested resolution.
 2. The backend validates the declared MIME type, file signature and upload size.
-3. The backend sends the product photo and `public/template.png` to `https://openrouter.ai/api/v1/images` through `input_references`. The prompt asks the model to preserve product identity, item count, logos, materials and physical placement.
+3. The backend validates `productType`, selects the matching category-specific prompt, and sends the product photo and `public/template.png` to `https://openrouter.ai/api/v1/images` through `input_references`. The shared prompt asks the model to preserve product identity, item count, logos, materials and physical placement.
 4. When the preserve-brand option is enabled, the browser restores protected artwork from the original template using `BRAND_REGIONS`.
 5. The browser draws the headline, subtitle and QR label from `TEXT_LAYERS`.
 6. The uploaded QR is composited locally into `QR_BOX`; it is never sent to the AI provider.
@@ -113,13 +113,14 @@ Open <http://localhost:3000>. Keep the API key out of `public/`, browser code, G
 | --- | --- | --- |
 | GET | `/health` | Returns `200 {"ok":true}`; does not test the provider |
 | GET | `/api/config` | Returns configured flag and models; does not validate the API key |
-| POST | `/api/generate-post` | Accepts multipart fields `product` (file), `model`, `resolution`; returns image bytes on success |
+| POST | `/api/generate-post` | Accepts multipart fields `product` (file), `productType` (required: `shoes`, `pants`, `blouse`, `bag`, `other`), `model`, `resolution`; returns image bytes on success |
 
 Successful image responses include `Content-Type`, `Cache-Control: no-store`, `X-3LABABEE-Model`, `X-3LABABEE-Requested-Resolution`, and optionally `X-OpenRouter-Cost`.
 
 | HTTP | Code | Meaning |
 | --- | --- | --- |
 | 400 | `missing_product` | No product file |
+| 400 | `invalid_product_type` | Missing or unsupported product category |
 | 400 | `invalid_image` | Missing/unrecognized signature or signature/MIME mismatch |
 | 400 | `upload_error` | Multer rejection, including file size over the limit |
 | 400 | `invalid_upload` | Other upload rejection, including unsupported MIME |
@@ -164,7 +165,9 @@ PNG dimensions follow the actual generated image, not merely the requested resol
 
 ### Other customization
 
-- AI instructions: `MERGE_PROMPT` in `server.js`.
+- AI instructions: shared `MERGE_PROMPT` and category-specific `PRODUCT_PROMPTS` in `server.js`.
+- Product type dropdown: `public/index.html`; selected value sent from `public/app.js`.
+- Category labels: `public/i18n.js`.
 - Translations: `public/i18n.js`.
 - Layout and styling: `public/index.html` and `public/styles.css`.
 
@@ -237,7 +240,7 @@ These supplied tests make no billable provider requests. Smoke tests start a loc
 
 The timeout test does not verify a real 120-second wait. Existing tests do not establish real 1K/2K generation, PNG browser download, JPEG/WebP validation coverage, concurrency enforcement, provider-error mapping, actual deployed commit, or Render timeout behavior.
 
-The workflow runs on pull requests and pushes to `security/initial-api-hardening`; it is not configured for push events on main.
+The workflow runs on pull requests and pushes to `main` (and `security/initial-api-hardening`). This is a CI check, not a guarantee of successful deployment or AI generation.
 
 ## Deployment checklist without paid requests
 
