@@ -208,6 +208,22 @@ const PRODUCT_PROMPTS = {
   "pants": "TROUSERS/PANTS: Extract the trousers alone, removing any model, legs, skin, shoes, unrelated garments and background. Present as a realistic standalone invisible-mannequin garment. Preserve waistband, pockets, fly, seams, original fit, fabric and hem details. Show the full length from waistband to hems; align hems naturally with the pedestal with believable support and shadows.",
   "blouse": "TOP/SHIRT/BLOUSE: Extract only the garment, removing people, skin, unrelated clothes, mannequins, shopping UI and background. Present as a photorealistic standalone invisible-mannequin garment with natural volume and folds. Preserve the actual neckline, collar if present, sleeves, buttons, fit, fabric, patterns and construction. Keep the garment entirely in the right display area and visually grounded on the pedestal.",
   "bag": "BAG/HANDBAG: Extract only the bag, removing people, hands, unrelated garments and background. Preserve exact silhouette, material, handles, straps, chains, stitching, zippers, closures and hardware. Arrange straps naturally according to the uploaded design. Position the bag base directly on the pedestal with realistic contact shadow, keeping all parts visible.",
+  "accessories": `ACCESSORIES — CATEGORY-SPECIFIC COMPOSITING:
+Create a premium photorealistic accessory advertisement using IMAGE 1 as the fixed template and IMAGE 2 as the exact accessory reference.
+Preserve the accessory's original design, item count, shape, color, materials, proportions, stones, engravings, logos, clasps, chains, and every distinctive detail. Do not redesign, replace, duplicate or invent product details.
+Remove the original photo background and any person, skin, hands, unrelated objects, and shopping interface.
+Position the accessory in the right-side display area, naturally supported by the existing pedestal. Choose a minimal support only when appropriate to the actual accessory:
+- Necklaces: a simple ivory necklace display bust.
+- Earrings: a discreet ivory earring stand.
+- Rings: a small ring holder, or retain the original jewelry box if one belongs to the product.
+- Bracelets and watches: a minimal holder or natural arrangement on the pedestal.
+- Other accessories: an understated support that makes the actual product clearly visible.
+Display supports must be proportional, visually unobtrusive and must not be mistaken for extra products. Preserve any original product set and all its components.
+Keep the accessory fully visible, prominent, uncropped, and clear of the protected left-side typography and QR card.
+Match the original template lighting, perspective and color temperature; add physically believable contact shadows and subtle realistic reflections.
+Preserve the template composition, original background, colors, gold circle, pedestal, botanical shadows, dimensions and all existing typography exactly.
+Leave the QR placeholder COMPLETELY EMPTY and unchanged. Do not generate a QR pattern, text or symbols there; the user uploads the real QR separately afterward.
+Do not add prices, slogans, watermarks, extra products, labels or unrelated decorations.`,
   "other": "OTHER PRODUCT: Identify the actual uploaded item or set. Preserve its exact count, components, shape, color, proportions, textures, labels and details. Remove irrelevant surroundings and display the product naturally on the right-side pedestal. Arrange multiple items without floating, unrealistic stacking or collisions."
 };
 const PRODUCT_TYPES = new Set(Object.keys(PRODUCT_PROMPTS));
