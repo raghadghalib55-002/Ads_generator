@@ -20,13 +20,15 @@ The interface supports English and Arabic (RTL). The application package is vers
 
 ## How it works
 
-1. Select a product category (Shoes, Pants, Blouse / Shirt, Bag, or Other), upload a PNG, JPEG or WebP product photo, then select a model and requested resolution.
+1. Select a product category (Shoes, Pants, Blouse / Shirt, Bag, Accessories, or Other), upload a PNG, JPEG or WebP product photo, then select a model and requested resolution.
 2. The backend validates the declared MIME type, file signature and upload size.
 3. The backend validates `productType`, selects the matching category-specific prompt, and sends the product photo and `public/template.png` to `https://openrouter.ai/api/v1/images` through `input_references`. The shared prompt asks the model to preserve product identity, item count, logos, materials and physical placement.
 4. When the preserve-brand option is enabled, the browser restores protected artwork from the original template using `BRAND_REGIONS`.
 5. The browser draws the headline, subtitle and QR label from `TEXT_LAYERS`.
 6. The uploaded QR is composited locally into `QR_BOX`; it is never sent to the AI provider.
 7. The canvas uses the actual returned image dimensions and exports a PNG.
+
+The **Accessories** category uses its own prompt for necklaces, earrings, rings, bracelets, watches and other accessories. It may use an understated display bust, stand or holder appropriate to the uploaded item, while preserving its original design and item count. All categories preserve the fixed template and leave the QR placeholder empty for the user's later upload.
 
 Product fidelity is a generation objective, not a guarantee. QR scaling can resample pixels; verify the exported code with a scanner.
 
@@ -113,7 +115,7 @@ Open <http://localhost:3000>. Keep the API key out of `public/`, browser code, G
 | --- | --- | --- |
 | GET | `/health` | Returns `200 {"ok":true}`; does not test the provider |
 | GET | `/api/config` | Returns configured flag and models; does not validate the API key |
-| POST | `/api/generate-post` | Accepts multipart fields `product` (file), `productType` (required: `shoes`, `pants`, `blouse`, `bag`, `other`), `model`, `resolution`; returns image bytes on success |
+| POST | `/api/generate-post` | Accepts multipart fields `product` (file), `productType` (required: `shoes`, `pants`, `blouse`, `bag`, `accessories`, `other`), `model`, `resolution`; returns image bytes on success |
 
 Successful image responses include `Content-Type`, `Cache-Control: no-store`, `X-3LABABEE-Model`, `X-3LABABEE-Requested-Resolution`, and optionally `X-OpenRouter-Cost`.
 
@@ -266,6 +268,7 @@ Use the deployed code revision, a fake key and interception of all provider traf
 - [ ] Valid PNG/JPEG/WebP reach only the mock; mismatched MIME/signature returns 400.
 - [ ] Return local PNG fixtures at 1024 × 1024 and 2048 × 2048; verify preview, branding, QR and downloaded PNG dimensions.
 - [ ] Inspect mock request payload for model/resolution; verify Lite forces 1K.
+- [ ] Verify all six category values, including `accessories`, are accepted and select the matching category prompt; reject unknown values with `invalid_product_type`.
 - [ ] Hold two generation requests in the same process; third returns 503 / server_busy without a third mock call.
 - [ ] Complete/fail pending requests; verify the next request is accepted.
 - [ ] Mock provider 429: 429 / provider_rate_limited.
