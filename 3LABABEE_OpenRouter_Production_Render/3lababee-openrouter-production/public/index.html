@@ -88,6 +88,18 @@
       <section class="creation-panel" data-step-panel="1">
         <h2 data-i18n="stepProductTitle">Product details</h2>
       <!-- PRODUCT CATEGORY -->
+      <label class="field" for="productTypeSelect">
+        <span data-i18n="productTypeLabel">Product type</span>
+        <select id="productTypeSelect" required>
+          <option value="shoes" data-i18n="typeShoes">Shoes</option>
+          <option value="pants" data-i18n="typePants">Pants</option>
+          <option value="blouse" data-i18n="typeBlouse">Blouse / Shirt</option>
+          <option value="bag" data-i18n="typeBag">Bag</option>
+          <option value="accessories" data-i18n="typeAccessories">Accessories</option>
+          <option value="other" data-i18n="typeOther">Other</option>
+        </select>
+      </label>
+
       <!-- PRODUCT IMAGE UPLOAD -->
       <label class="upload">
         <span data-i18n="productLabel">
@@ -210,6 +222,24 @@
 
       <section class="creation-panel" data-step-panel="2" hidden>
         <h2 data-i18n="stepSettingsTitle">AI settings</h2>
+      <label class="field">
+        <span data-i18n="modelLabel">AI model</span>
+        <select id="modelSelect">
+          <option value="google/gemini-3.1-flash-image" data-i18n="modelStandard">Nano Banana 2 · Standard</option>
+          <option value="google/gemini-3-pro-image" data-i18n="modelPremium">Gemini 3 Pro Image · Premium</option>
+          <option value="google/gemini-3.1-flash-lite-image" data-i18n="modelEconomy">Nano Banana 2 Lite · Economy</option>
+        </select>
+      </label>
+      <label class="field">
+        <span data-i18n="resolutionLabel">AI resolution</span>
+        <select id="resolutionSelect">
+          <option value="1K" data-i18n="res1k">1K · Recommended for testing</option>
+          <option value="2K" data-i18n="res2k">2K</option>
+          <option value="4K" data-i18n="res4k">4K</option>
+        </select>
+      </label>
+      <p id="modelHint" class="hint"></p>
+
       </section>
 
       <section class="creation-panel" data-step-panel="3" hidden>
