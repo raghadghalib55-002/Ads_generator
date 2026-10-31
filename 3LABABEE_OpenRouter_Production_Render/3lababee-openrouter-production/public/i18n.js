@@ -54,6 +54,7 @@ const translations = {
     modelLabel: "نموذج الذكاء الاصطناعي",
     resolutionLabel: "دقة الصورة",
     productLabel: "١. صورة المنتج",
+    dropzoneTitle: "اسحب صورة المنتج إلى هنا", dropzoneOr: "أو اضغط لاختيار ملف", dropzoneHint: "PNG أو JPG أو WebP · الحد الأقصى 20 MB", changeImage: "تغيير", removeImage: "إزالة",
     productTypeLabel: "نوع المنتج",
     stepProduct: "المنتج", stepSettings: "إعدادات AI", stepGenerate: "الإنشاء", stepFinish: "QR والتنزيل",
     stepProductTitle: "تفاصيل المنتج", stepSettingsTitle: "إعدادات الذكاء الاصطناعي", stepGenerateTitle: "إنشاء الإعلان", stepGenerateHint: "راجعي اختياراتك ثم أنشئي الإعلان.", stepFinishTitle: "إضافة QR وتنزيل الإعلان", stepBack: "رجوع", stepNext: "متابعة",
