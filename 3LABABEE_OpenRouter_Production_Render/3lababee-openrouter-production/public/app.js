@@ -384,7 +384,21 @@ function updateWizard() {
     const model = modelSelect.options[modelSelect.selectedIndex]?.textContent?.trim() || modelSelect.value;
     const category = productTypeSelect.options[productTypeSelect.selectedIndex]?.textContent?.trim() || productTypeSelect.value;
     const credits = selectedImageCredits();
-    generationSummary.textContent = [productFile?.name, category, model, resolutionSelect.value, credits === null ? null : `${credits} ${document.documentElement.lang === "ar" ? "كريديت" : "credits"} (${(credits / 100).toFixed(2)} JOD)`].filter(Boolean).join(" · ");
+    const isArabic = document.documentElement.lang === "ar";
+    const reviewImage = document.getElementById("reviewProductImage");
+    if (productFile && productPreviewUrl) {
+      reviewImage.src = productPreviewUrl;
+      reviewImage.alt = productFile.name;
+    } else {
+      reviewImage.removeAttribute("src");
+    }
+    document.getElementById("reviewProductName").textContent = productFile?.name || "";
+    document.getElementById("reviewProductSize").textContent = productFile ? (productFile.size / (1024 * 1024)).toFixed(2) + " MB" : "";
+    document.getElementById("reviewCategory").textContent = category;
+    document.getElementById("reviewModel").textContent = model;
+    document.getElementById("reviewResolution").textContent = resolutionSelect.value;
+    document.getElementById("reviewCredits").textContent = credits === null ? "—" : `${credits} ${isArabic ? "كريديت" : "credits"}`;
+    document.getElementById("reviewJod").textContent = credits === null ? "" : `${(credits / 100).toFixed(2)} ${isArabic ? "د.أ" : "JOD"}`;
   }
 }
 function goToStep(n) {
@@ -397,14 +411,14 @@ function goToStep(n) {
 stepBackBtn.addEventListener("click", () => goToStep(currentStep - 1));
 stepNextBtn.addEventListener("click", () => goToStep(currentStep + 1));
 document.querySelectorAll(".lang-btn").forEach(btn => btn.addEventListener("click", () => {
-  // Translation updates in the existing i18n handler.
+  // Refresh translated review labels after the language switch.
   updateWizard();
 }));
 updateWizard();
 
 modelSelect.addEventListener("change", updateModelUi);
 resolutionSelect.addEventListener("change", updateModelUi);
-document.addEventListener("3lababee:languagechange", updateModelUi);
+document.addEventListener("3lababee:languagechange", () => { updateModelUi(); updateWizard(); });
 updateModelUi();
 
 const productDropzone = document.getElementById("productDropzone");
