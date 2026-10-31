@@ -330,12 +330,60 @@ function updateModelUi() {
   }
 }
 
+
+// Four-step interface. The existing generation, QR and export logic remains unchanged.
+const stepPanels = [...document.querySelectorAll("[data-step-panel]")];
+const stepIndicators = [...document.querySelectorAll("[data-step-indicator]")];
+const stepBackBtn = document.getElementById("stepBackBtn");
+const stepNextBtn = document.getElementById("stepNextBtn");
+const generationSummary = document.getElementById("generationSummary");
+let currentStep = 1;
+let generationBusy = false;
+
+function updateWizard() {
+  stepPanels.forEach(panel => {
+    const active = Number(panel.dataset.stepPanel) === currentStep;
+    panel.hidden = !active;
+  });
+  stepIndicators.forEach(indicator => {
+    const n = Number(indicator.dataset.stepIndicator);
+    indicator.classList.toggle("is-active", n === currentStep);
+    indicator.classList.toggle("is-complete", n < currentStep);
+    if (n === currentStep) indicator.setAttribute("aria-current", "step");
+    else indicator.removeAttribute("aria-current");
+  });
+  stepBackBtn.hidden = currentStep === 1;
+  stepBackBtn.disabled = generationBusy;
+  stepNextBtn.hidden = currentStep >= 3;
+  stepNextBtn.disabled = generationBusy || (currentStep === 1 && !productFile);
+  if (currentStep === 3) {
+    const model = modelSelect.options[modelSelect.selectedIndex]?.textContent?.trim() || modelSelect.value;
+    const category = productTypeSelect.options[productTypeSelect.selectedIndex]?.textContent?.trim() || productTypeSelect.value;
+    generationSummary.textContent = [productFile?.name, category, model, resolutionSelect.value].filter(Boolean).join(" · ");
+  }
+}
+function goToStep(n) {
+  if (generationBusy || n < 1 || n > 4) return;
+  if (n > 1 && !productFile) return;
+  if (n === 4 && !aiPosterImage) return;
+  currentStep = n;
+  updateWizard();
+}
+stepBackBtn.addEventListener("click", () => goToStep(currentStep - 1));
+stepNextBtn.addEventListener("click", () => goToStep(currentStep + 1));
+document.querySelectorAll(".lang-btn").forEach(btn => btn.addEventListener("click", () => {
+  // Translation updates in the existing i18n handler.
+  updateWizard();
+}));
+updateWizard();
+
 modelSelect.addEventListener("change", updateModelUi);
 updateModelUi();
 
 productInput.addEventListener("change", () => {
   productFile = productInput.files?.[0] || null;
   generateBtn.disabled = !productFile;
+  updateWizard();
 
   if (!productFile) {
     productPreviewWrap.classList.add("hidden");
@@ -367,6 +415,8 @@ qrInput.addEventListener("change", async () => {
 generateBtn.addEventListener("click", async () => {
   if (!productFile) return;
 
+  generationBusy = true;
+  updateWizard();
   generateBtn.disabled = true;
   downloadBtn.disabled = true;
   costEl.classList.add("hidden");
@@ -416,6 +466,8 @@ generateBtn.addEventListener("click", async () => {
     }
 
     render();
+    generationBusy = false;
+    goToStep(4);
     setStatus(
       qrImage
         ? "Done. Product generated, exact brand areas restored, and QR added untouched."
@@ -426,7 +478,9 @@ generateBtn.addEventListener("click", async () => {
     console.error(error);
     setStatus(error.message || "AI generation failed.", "error");
   } finally {
-    generateBtn.disabled = false;
+    generationBusy = false;
+    generateBtn.disabled = !productFile;
+    updateWizard();
   }
 });
 
