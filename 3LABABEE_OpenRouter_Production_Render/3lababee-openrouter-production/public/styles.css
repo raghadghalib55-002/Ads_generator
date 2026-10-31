@@ -681,3 +681,7 @@ html[dir="rtl"] #resolutionSelect {
 .product-file-actions{display:flex;gap:8px;flex-wrap:wrap}
 .product-file-actions button{padding:7px 12px;font-size:11px}
 #removeProductBtn{color:#a23838}
+
+/* Step order follows the active interface language. */
+html[dir="rtl"] .creation-steps { direction: rtl; }
+html[dir="ltr"] .creation-steps { direction: ltr; }
