@@ -260,7 +260,23 @@
       <section class="creation-panel" data-step-panel="3" hidden>
         <h2 data-i18n="stepGenerateTitle">Generate your advertisement</h2>
         <p class="hint" data-i18n="stepGenerateHint">Review your selections, then generate your advertisement.</p>
-        <div id="generationSummary" class="generation-summary"></div>
+        <div class="review-product">
+          <img id="reviewProductImage" alt="Selected product" />
+          <div class="review-product-info">
+            <strong id="reviewProductName"></strong>
+            <span id="reviewProductSize"></span>
+          </div>
+        </div>
+        <dl class="review-details">
+          <div><dt data-i18n="reviewCategory">Category</dt><dd id="reviewCategory"></dd></div>
+          <div><dt data-i18n="reviewModel">AI model</dt><dd id="reviewModel"></dd></div>
+          <div><dt data-i18n="reviewResolution">Resolution</dt><dd id="reviewResolution"></dd></div>
+        </dl>
+        <div class="review-cost">
+          <div><span data-i18n="reviewCost">Estimated generation cost</span><strong id="reviewCredits"></strong></div>
+          <small id="reviewJod"></small>
+          <p data-i18n="reviewCostNote">This is a pricing estimate. No credits are deducted by this page yet.</p>
+        </div>
       <!-- PRESERVE BRAND -->
       <label class="check-row">
 
