@@ -661,3 +661,23 @@ html[dir="rtl"] #resolutionSelect {
 .step-navigation button{flex:1;min-width:0}
 .generation-summary{padding:14px;background:#f7f9fd;border:1px solid #e5eaf3;border-radius:12px;font-size:12px;line-height:1.8;overflow-wrap:anywhere}
 @media(max-width:480px){.creation-step{font-size:9px}.step-number{width:27px;height:27px}}
+
+/* Product image drag & drop */
+.product-upload{display:grid;gap:10px;margin:17px 0 13px}
+.upload-label{font-size:13px;font-weight:700}
+.product-dropzone{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;min-height:170px;padding:22px 16px;border:2px dashed #cbd4e6;border-radius:16px;background:#f8faff;color:#69748d;cursor:pointer;transition:background .2s,border-color .2s}
+.product-dropzone strong{color:#24255f;font-size:13px}
+.product-dropzone span:not(.dropzone-icon){font-size:12px}
+.product-dropzone small{font-size:11px;color:#8490a6}
+.dropzone-icon{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:#e7edf9;color:#24255f;font-size:25px;font-weight:700}
+.product-dropzone:hover,.product-dropzone.is-dragover,.product-dropzone:focus-visible{background:#eef6ff;border-color:#3dbff0;outline:none}
+.product-dropzone.has-file{min-height:90px;padding:12px}
+.visually-hidden-input{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;opacity:0!important;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.product-upload-preview{height:auto;min-height:112px;display:flex;align-items:center;justify-content:flex-start;gap:14px;padding:12px}
+.product-upload-preview img{width:90px;height:90px;flex:none;border-radius:9px;object-fit:contain;background:white}
+.product-file-info{min-width:0;flex:1;display:grid;gap:5px;font-size:12px}
+#productFileName{font-weight:700;overflow-wrap:anywhere}
+#productFileSize{color:#8490a6}
+.product-file-actions{display:flex;gap:8px;flex-wrap:wrap}
+.product-file-actions button{padding:7px 12px;font-size:11px}
+#removeProductBtn{color:#a23838}
