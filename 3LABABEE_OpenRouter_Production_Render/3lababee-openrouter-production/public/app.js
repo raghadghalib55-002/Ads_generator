@@ -380,19 +380,75 @@ updateWizard();
 modelSelect.addEventListener("change", updateModelUi);
 updateModelUi();
 
-productInput.addEventListener("change", () => {
-  productFile = productInput.files?.[0] || null;
-  generateBtn.disabled = !productFile;
-  updateWizard();
+const productDropzone = document.getElementById("productDropzone");
+const changeProductBtn = document.getElementById("changeProductBtn");
+const removeProductBtn = document.getElementById("removeProductBtn");
+const productFileName = document.getElementById("productFileName");
+const productFileSize = document.getElementById("productFileSize");
+let productPreviewUrl = null;
 
-  if (!productFile) {
-    productPreviewWrap.classList.add("hidden");
-    return;
+function setProductFile(file) {
+  if (file) {
+    const allowed = ["image/png", "image/jpeg", "image/webp"];
+    if (!allowed.includes(file.type) || file.size > 20 * 1024 * 1024 || file.size === 0) {
+      setStatus("Choose a PNG, JPG or WebP image up to 20 MB.", "error");
+      return;
+    }
   }
+  if (productPreviewUrl) {
+    URL.revokeObjectURL(productPreviewUrl);
+    productPreviewUrl = null;
+  }
+  productFile = file || null;
+  generateBtn.disabled = !productFile;
+  if (productFile) {
+    productPreviewUrl = URL.createObjectURL(productFile);
+    productPreview.src = productPreviewUrl;
+    productFileName.textContent = productFile.name;
+    productFileSize.textContent = (productFile.size / (1024 * 1024)).toFixed(2) + " MB";
+    productPreviewWrap.classList.remove("hidden");
+    productDropzone.classList.add("has-file");
+    setStatus("Product ready. Continue to AI settings.");
+  } else {
+    productPreview.removeAttribute("src");
+    productPreviewWrap.classList.add("hidden");
+    productDropzone.classList.remove("has-file");
+    productInput.value = "";
+    setStatus("Upload a product image to start.");
+  }
+  // A changed product must not leave an old generated advertisement downloadable.
+  aiPosterImage = null;
+  downloadBtn.disabled = true;
+  costEl.classList.add("hidden");
+  render();
+  if (!productFile && currentStep > 1) currentStep = 1;
+  updateWizard();
+}
 
-  productPreview.src = URL.createObjectURL(productFile);
-  productPreviewWrap.classList.remove("hidden");
-  setStatus("Product ready. Choose a model and generate.");
+productInput.addEventListener("change", () => {
+  if (productInput.files?.[0]) setProductFile(productInput.files[0]);
+});
+productDropzone.addEventListener("click", () => productInput.click());
+productDropzone.addEventListener("keydown", event => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    productInput.click();
+  }
+});
+changeProductBtn.addEventListener("click", () => productInput.click());
+removeProductBtn.addEventListener("click", () => setProductFile(null));
+["dragenter", "dragover"].forEach(type => productDropzone.addEventListener(type, event => {
+  event.preventDefault();
+  if (event.dataTransfer) event.dataTransfer.dropEffect = "copy";
+  productDropzone.classList.add("is-dragover");
+}));
+["dragleave", "drop"].forEach(type => productDropzone.addEventListener(type, event => {
+  event.preventDefault();
+  productDropzone.classList.remove("is-dragover");
+}));
+productDropzone.addEventListener("drop", event => {
+  const file = event.dataTransfer?.files?.[0];
+  if (file) setProductFile(file);
 });
 
 qrInput.addEventListener("change", async () => {
