@@ -238,6 +238,22 @@
         </select>
       </label>
       <p id="modelHint" class="hint"></p>
+      <div class="ai-model-guide" aria-live="polite">
+        <strong id="selectedModelTitle"></strong>
+        <p id="selectedModelDescription"></p>
+      </div>
+      <p id="resolutionDescription" class="hint resolution-description"></p>
+      <div class="credit-estimate" aria-live="polite">
+        <div class="credit-estimate-top">
+          <span data-i18n="estimatedCredits">Estimated image cost</span>
+          <strong><span id="estimatedCreditCount">25</span> <span data-i18n="creditsUnit">credits</span></strong>
+        </div>
+        <div class="credit-estimate-sub">
+          <span data-i18n="estimatedJodLabel">Equivalent price</span>
+          <strong><span id="estimatedJod">0.25</span> <span data-i18n="jodUnit">JOD</span></strong>
+        </div>
+        <p data-i18n="creditEstimateNote">Pricing preview only. Credits are not charged by this page yet.</p>
+      </div>
 
       </section>
 
