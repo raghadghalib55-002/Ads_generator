@@ -101,27 +101,26 @@
       </label>
 
       <!-- PRODUCT IMAGE UPLOAD -->
-      <label class="upload">
-        <span data-i18n="productLabel">
-          1. Product image
-        </span>
-
-        <input
-          id="productInput"
-          type="file"
-          accept="image/png,image/jpeg,image/webp"
-        />
-      </label>
-
-      <!-- PRODUCT IMAGE PREVIEW -->
-      <div
-        id="productPreviewWrap"
-        class="mini-preview hidden"
-      >
-        <img
-          id="productPreview"
-          alt="Product preview"
-        />
+      <div class="product-upload">
+        <span class="upload-label" data-i18n="productLabel">1. Product image</span>
+        <div id="productDropzone" class="product-dropzone" role="button" tabindex="0" aria-controls="productInput" aria-describedby="productUploadHint">
+          <span class="dropzone-icon" aria-hidden="true">↑</span>
+          <strong data-i18n="dropzoneTitle">Drop your product image here</strong>
+          <span data-i18n="dropzoneOr">or click to browse files</span>
+          <small id="productUploadHint" data-i18n="dropzoneHint">PNG, JPG or WebP · Max 20 MB</small>
+        </div>
+        <input id="productInput" class="visually-hidden-input" type="file" accept="image/png,image/jpeg,image/webp" aria-label="Upload product image" />
+        <div id="productPreviewWrap" class="mini-preview product-upload-preview hidden">
+          <img id="productPreview" alt="Product preview" />
+          <div class="product-file-info">
+            <span id="productFileName"></span>
+            <span id="productFileSize"></span>
+            <div class="product-file-actions">
+              <button id="changeProductBtn" type="button" data-i18n="changeImage">Change</button>
+              <button id="removeProductBtn" type="button" data-i18n="removeImage">Remove</button>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- PRODUCT PHOTO GUIDELINES -->
