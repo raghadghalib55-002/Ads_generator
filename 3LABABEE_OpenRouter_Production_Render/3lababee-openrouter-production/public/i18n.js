@@ -5,6 +5,7 @@ const translations = {
     subtitle: "AI-powered product advertising studio",
     intro: "Upload your product image, create a professional advertisement with 3LABABEE, and add your QR code to the final design.",
     modelLabel: "AI model",
+    estimatedCredits: "Estimated image cost", creditsUnit: "credits", estimatedJodLabel: "Equivalent price", jodUnit: "JOD", creditEstimateNote: "Pricing preview only. Credits are not charged by this page yet.",
     resolutionLabel: "AI resolution",
     productLabel: "1. Product image",
     dropzoneTitle: "Drop your product image here", dropzoneOr: "or click to browse files", dropzoneHint: "PNG, JPG or WebP · Max 20 MB", changeImage: "Change", removeImage: "Remove",
@@ -52,6 +53,7 @@ const translations = {
     subtitle: "استوديو ذكي لإنشاء إعلانات احترافية لمنتجاتك",
     intro: "ارفع صورة منتجك، وأنشئ إعلانًا احترافيًا باستخدام 3LABABEE، ثم أضف رمز QR الخاص بالمنتج إلى التصميم النهائي.",
     modelLabel: "نموذج الذكاء الاصطناعي",
+    estimatedCredits: "تكلفة إنشاء الصورة المتوقعة", creditsUnit: "كريديت", estimatedJodLabel: "السعر بالدينار", jodUnit: "د.أ", creditEstimateNote: "الأسعار للعرض فقط؛ خصم الكريديتس غير مفعّل حاليًا.",
     resolutionLabel: "دقة الصورة",
     productLabel: "١. صورة المنتج",
     dropzoneTitle: "اسحب صورة المنتج إلى هنا", dropzoneOr: "أو اضغط لاختيار ملف", dropzoneHint: "PNG أو JPG أو WebP · الحد الأقصى 20 MB", changeImage: "تغيير", removeImage: "إزالة",
@@ -117,6 +119,7 @@ function applyLanguage(lang) {
   });
 
   localStorage.setItem("3lababee-language", selected);
+  document.dispatchEvent(new CustomEvent("3lababee:languagechange", { detail: { language: selected } }));
 }
 
 document.addEventListener("DOMContentLoaded", () => {
