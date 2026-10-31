@@ -314,22 +314,46 @@ function render() {
 }
 
 
+// Published Ads Temp pricing: 1 credit = 0.01 JOD.
+// Informational only; this client does not implement a wallet or deductions.
+const IMAGE_CREDIT_PRICES = Object.freeze({
+  "google/gemini-3.1-flash-lite-image": { "1K": 15 },
+  "google/gemini-3.1-flash-image": { "1K": 25, "2K": 35, "4K": 50 },
+  "google/gemini-3-pro-image": { "1K": 40, "2K": 40, "4K": 70 }
+});
+const MODEL_GUIDE = {
+  "google/gemini-3.1-flash-lite-image": { title: ["Economy · Nano Banana 2 Lite", "اقتصادي · Nano Banana 2 Lite"], description: ["For low-cost testing. Supports 1K only.", "مناسب للتجارب بتكلفة أقل. يدعم دقة 1K فقط."] },
+  "google/gemini-3.1-flash-image": { title: ["Standard · Nano Banana 2", "قياسي · Nano Banana 2"], description: ["Balanced option for everyday advertisements.", "خيار متوازن لإنشاء الإعلانات اليومية."] },
+  "google/gemini-3-pro-image": { title: ["Premium · Gemini 3 Pro Image", "مميز · Gemini 3 Pro Image"], description: ["For higher-detail results; may take longer.", "للصور ذات التفاصيل الأعلى، وقد يستغرق وقتًا أطول."] }
+};
+const RESOLUTION_GUIDE = {
+  "1K": ["1K · Recommended for quick tests.", "1K · مناسبة للتجارب السريعة."],
+  "2K": ["2K · More detail for polished posts.", "2K · تفاصيل أكثر للإعلانات النهائية."],
+  "4K": ["4K · Highest resolution; larger output.", "4K · أعلى دقة وحجم صورة أكبر."]
+};
+function currentUiLanguage() {
+  return document.documentElement.lang === "ar" ? 1 : 0;
+}
+function selectedImageCredits() {
+  return IMAGE_CREDIT_PRICES[modelSelect.value]?.[resolutionSelect.value] ?? null;
+}
 function updateModelUi() {
   const model = modelSelect.value;
-
-  if (model === "google/gemini-3.1-flash-lite-image") {
-    resolutionSelect.value = "1K";
-    resolutionSelect.disabled = true;
-    modelHint.textContent = "Economy mode: Nano Banana 2 Lite outputs at 1K.";
-  } else if (model === "google/gemini-3-pro-image") {
-    resolutionSelect.disabled = false;
-    modelHint.textContent = "Premium mode: highest quality; slower and more expensive.";
-  } else {
-    resolutionSelect.disabled = false;
-    modelHint.textContent = "Standard mode: recommended balance of quality, speed and cost.";
-  }
+  const isLite = model === "google/gemini-3.1-flash-lite-image";
+  if (isLite) resolutionSelect.value = "1K";
+  resolutionSelect.disabled = isLite;
+  const language = currentUiLanguage();
+  const guide = MODEL_GUIDE[model];
+  const credits = selectedImageCredits();
+  modelHint.textContent = isLite
+    ? (language ? "هذا النموذج يدعم 1K فقط." : "This model supports 1K only.")
+    : "";
+  document.getElementById("selectedModelTitle").textContent = guide?.title[language] || "";
+  document.getElementById("selectedModelDescription").textContent = guide?.description[language] || "";
+  document.getElementById("resolutionDescription").textContent = RESOLUTION_GUIDE[resolutionSelect.value]?.[language] || "";
+  document.getElementById("estimatedCreditCount").textContent = credits === null ? "—" : String(credits);
+  document.getElementById("estimatedJod").textContent = credits === null ? "—" : (credits / 100).toFixed(2);
 }
-
 
 // Four-step interface. The existing generation, QR and export logic remains unchanged.
 const stepPanels = [...document.querySelectorAll("[data-step-panel]")];
@@ -359,7 +383,8 @@ function updateWizard() {
   if (currentStep === 3) {
     const model = modelSelect.options[modelSelect.selectedIndex]?.textContent?.trim() || modelSelect.value;
     const category = productTypeSelect.options[productTypeSelect.selectedIndex]?.textContent?.trim() || productTypeSelect.value;
-    generationSummary.textContent = [productFile?.name, category, model, resolutionSelect.value].filter(Boolean).join(" · ");
+    const credits = selectedImageCredits();
+    generationSummary.textContent = [productFile?.name, category, model, resolutionSelect.value, credits === null ? null : `${credits} ${document.documentElement.lang === "ar" ? "كريديت" : "credits"} (${(credits / 100).toFixed(2)} JOD)`].filter(Boolean).join(" · ");
   }
 }
 function goToStep(n) {
@@ -378,6 +403,8 @@ document.querySelectorAll(".lang-btn").forEach(btn => btn.addEventListener("clic
 updateWizard();
 
 modelSelect.addEventListener("change", updateModelUi);
+resolutionSelect.addEventListener("change", updateModelUi);
+document.addEventListener("3lababee:languagechange", updateModelUi);
 updateModelUi();
 
 const productDropzone = document.getElementById("productDropzone");
