@@ -685,3 +685,15 @@ html[dir="rtl"] #resolutionSelect {
 /* Step order follows the active interface language. */
 html[dir="rtl"] .creation-steps { direction: rtl; }
 html[dir="ltr"] .creation-steps { direction: ltr; }
+
+/* AI settings guide and transparent pre-generation price preview */
+.ai-model-guide{margin:12px 0 10px;padding:14px 15px;border:1px solid #e3e8f2;border-radius:12px;background:#f7f9fd}
+.ai-model-guide strong{display:block;color:#24255f;font-size:13px}
+.ai-model-guide p{margin:6px 0 0;color:#68748e;font-size:12px;line-height:1.7}
+.resolution-description{margin:9px 0 15px}
+.credit-estimate{padding:17px;border-radius:14px;background:#eef7ff;border:1px solid #cce4f7}
+.credit-estimate-top,.credit-estimate-sub{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.credit-estimate-top{color:#24255f;font-size:13px;font-weight:700}
+.credit-estimate-top strong{font-size:19px;white-space:nowrap}
+.credit-estimate-sub{margin-top:10px;color:#566780;font-size:12px}
+.credit-estimate p{margin:13px 0 0;padding-top:11px;border-top:1px solid #d6e7f4;color:#64768c;font-size:11px;line-height:1.7}
