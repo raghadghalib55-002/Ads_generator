@@ -7,6 +7,7 @@ const translations = {
     modelLabel: "AI model",
     resolutionLabel: "AI resolution",
     productLabel: "1. Product image",
+    dropzoneTitle: "Drop your product image here", dropzoneOr: "or click to browse files", dropzoneHint: "PNG, JPG or WebP · Max 20 MB", changeImage: "Change", removeImage: "Remove",
     productTypeLabel: "Product type",
     stepProduct: "Product", stepSettings: "AI Settings", stepGenerate: "Generate", stepFinish: "QR & Download",
     stepProductTitle: "Product details", stepSettingsTitle: "AI settings", stepGenerateTitle: "Generate your advertisement", stepGenerateHint: "Review your selections, then generate your advertisement.", stepFinishTitle: "Add QR and download", stepBack: "Back", stepNext: "Continue",
