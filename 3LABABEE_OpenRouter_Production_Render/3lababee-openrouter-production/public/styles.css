@@ -747,3 +747,20 @@ html[dir="ltr"] .creation-steps { direction: ltr; }
 .generation-error strong{color:#9c3434}
 .generation-error p{overflow-wrap:anywhere}
 .generation-error button{margin-top:12px}
+
+/* Fullscreen preview and zoom */
+.preview-head-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.preview-fullscreen-btn{font-size:11px;padding:7px 10px}
+.fullscreen-modal[hidden]{display:none!important}
+.fullscreen-modal{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:18px}
+.fullscreen-backdrop{position:absolute;inset:0;background:rgba(9,13,35,.83)}
+.fullscreen-dialog{position:relative;display:flex;flex-direction:column;width:min(1100px,100%);height:min(92vh,960px);background:#fff;border-radius:18px;overflow:hidden;outline:none}
+.fullscreen-toolbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:13px 17px;border-bottom:1px solid #e6eaf2;color:#24255f}
+.fullscreen-toolbar strong{font-size:14px}
+.fullscreen-tools{display:flex;align-items:center;gap:7px}
+.fullscreen-tools button{min-width:34px;min-height:34px;padding:6px 10px}
+.fullscreen-tools output{min-width:49px;text-align:center;font-size:12px;font-variant-numeric:tabular-nums}
+.fullscreen-viewport{flex:1;min-height:0;overflow:auto;background:#f2f2f4;text-align:center;padding:16px}
+.fullscreen-viewport img{display:block;width:100%;max-width:none;height:auto;margin:auto;object-fit:contain}
+body.fullscreen-open{overflow:hidden}
+@media(max-width:480px){.fullscreen-modal{padding:7px}.fullscreen-dialog{height:96vh}.fullscreen-toolbar{padding:10px}.fullscreen-viewport{padding:8px}}
