@@ -585,6 +585,20 @@ qrInput.addEventListener("change", async () => {
   );
 });
 
+const regenerateBtn = document.getElementById("regenerateBtn");
+const generateNewAdsBtn = document.getElementById("generateNewAdsBtn");
+regenerateBtn.addEventListener("click", () => {
+  if (generationBusy || !productFile || !aiPosterImage) return;
+  // Return to the generation step so loading and retry remain visible.
+  goToStep(3);
+  generateBtn.click();
+});
+generateNewAdsBtn.addEventListener("click", () => {
+  if (generationBusy) return;
+  // Start a clean wizard session; IndexedDB history remains intact.
+  window.location.reload();
+});
+
 const generationProgress = document.getElementById("generationProgress");
 const generationError = document.getElementById("generationError");
 const generationErrorMessage = document.getElementById("generationErrorMessage");
