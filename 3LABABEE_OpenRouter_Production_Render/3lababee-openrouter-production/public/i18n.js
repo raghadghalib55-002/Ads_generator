@@ -2,6 +2,7 @@
 const translations = {
   en: {
     title: "AI Product Post Generator",
+    regenerateBtn: "Regenerate", generateNewAdsBtn: "Generate New Ads", regenerateNote: "Each regeneration is a separate AI generation. Credits will be charged per attempt once billing is enabled.",
     historyOpen: "History", historyTitle: "Generation History", historySubtitle: "Saved in this browser only. Clearing site data removes saved images.", historyClose: "Close history", historyEmpty: "No saved advertisements yet.",
     fullscreenOpen: "Fullscreen preview", fullscreenTitle: "Advertisement preview", fullscreenClose: "Close preview", fullscreenImageAlt: "Full-size advertisement preview", zoomInLabel: "Zoom in", zoomOutLabel: "Zoom out", zoomReset: "Reset",
     generationWorking: "Creating your advertisement…", generationWait: "This may take a little while. Please keep this page open.", generationFailed: "Could not generate the advertisement", generationRetry: "Try again",
@@ -55,6 +56,7 @@ const translations = {
 
   ar: {
     title: "مولّد إعلانات المنتجات بالذكاء الاصطناعي",
+    regenerateBtn: "إعادة التوليد", generateNewAdsBtn: "إنشاء إعلان جديد", regenerateNote: "كل إعادة توليد تُعد عملية مستقلة. سيتم احتساب كريديتس لكل محاولة عند تفعيل نظام الدفع.",
     historyOpen: "السجل", historyTitle: "سجل الإعلانات", historySubtitle: "الإعلانات محفوظة على هذا المتصفح فقط. حذف بيانات الموقع يؤدي إلى فقدانها.", historyClose: "إغلاق السجل", historyEmpty: "لا توجد إعلانات محفوظة بعد.",
     fullscreenOpen: "عرض بملء الشاشة", fullscreenTitle: "معاينة الإعلان", fullscreenClose: "إغلاق المعاينة", fullscreenImageAlt: "معاينة الإعلان بالحجم الكامل", zoomInLabel: "تكبير", zoomOutLabel: "تصغير", zoomReset: "إعادة ضبط",
     generationWorking: "جاري إنشاء الإعلان…", generationWait: "قد يستغرق الأمر بعض الوقت. يُرجى إبقاء الصفحة مفتوحة.", generationFailed: "تعذّر إنشاء الإعلان", generationRetry: "إعادة المحاولة",
