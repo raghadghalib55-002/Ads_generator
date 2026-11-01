@@ -439,14 +439,10 @@
         <canvas id="finalCanvas" width="1024" height="1024"></canvas>
         <img id="comparisonOriginal" class="comparison-original" alt="Original product" hidden />
         <div id="comparisonDivider" class="comparison-divider" hidden><span aria-hidden="true">↔</span></div>
+        <input id="comparisonRange" class="comparison-drag-input" type="range" min="0" max="100" value="50" aria-label="Before and after comparison" data-i18n-aria-label="comparisonRangeLabel" hidden />
         <span id="comparisonBeforeLabel" class="comparison-label comparison-before" data-i18n="comparisonBefore" hidden>Before</span>
         <span id="comparisonAfterLabel" class="comparison-label comparison-after" data-i18n="comparisonAfter" hidden>After</span>
       </div>
-      <div id="comparisonControls" class="comparison-controls" hidden>
-        <label for="comparisonRange" data-i18n="comparisonInstruction">Slide to compare the original product and generated ad</label>
-        <input id="comparisonRange" type="range" min="0" max="100" value="50" aria-label="Before and after comparison" data-i18n-aria-label="comparisonRangeLabel" />
-      </div>
-
     </section>
 
   </main>
