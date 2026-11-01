@@ -714,3 +714,16 @@ html[dir="ltr"] .creation-steps { direction: ltr; }
 .review-cost strong{font-size:18px;white-space:nowrap}
 .review-cost small{display:block;text-align:end;margin-top:6px;font-weight:700;color:#42627e}
 .review-cost p{margin:12px 0 0;padding-top:10px;border-top:1px solid #d6e7f4;color:#65748d;font-size:11px;line-height:1.6}
+
+/* Comparison is a presentation overlay; export always uses the original canvas. */
+.comparison-stage{position:relative;overflow:hidden;border-radius:15px;--comparison-split:50%;background:#f8f8f8}
+.comparison-stage #finalCanvas{border-radius:0}
+.comparison-original{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:white;clip-path:inset(0 calc(100% - var(--comparison-split)) 0 0);pointer-events:none}
+.comparison-divider{position:absolute;top:0;bottom:0;left:var(--comparison-split);width:2px;background:white;box-shadow:0 0 7px #0005;transform:translateX(-50%);pointer-events:none}
+.comparison-divider span{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:37px;height:37px;border-radius:50%;background:white;color:#24255f;font-weight:800;box-shadow:0 3px 12px #0003}
+.comparison-label{position:absolute;top:13px;padding:6px 11px;border-radius:30px;background:#fffffff0;color:#24255f;font-size:11px;font-weight:700;pointer-events:none}
+.comparison-before{left:13px}.comparison-after{right:13px}
+.comparison-controls{margin-top:13px}
+.comparison-controls label{display:block;margin-bottom:8px;color:#68708a;font-size:12px;line-height:1.5}
+.comparison-controls input{display:block;width:100%;accent-color:#24255f;cursor:ew-resize}
+.comparison-original[hidden],.comparison-divider[hidden],.comparison-label[hidden],.comparison-controls[hidden]{display:none!important}
