@@ -439,9 +439,10 @@
           Final Post Preview
         </strong>
 
-        <span id="exportResolution">
-           1:1 · 1024 × 1024 export
-        </span>
+        <div class="preview-head-actions">
+          <span id="exportResolution">1:1 · 1024 × 1024 export</span>
+          <button id="openFullscreenBtn" type="button" class="preview-fullscreen-btn" data-i18n="fullscreenOpen" aria-haspopup="dialog">Fullscreen preview</button>
+        </div>
 
       </div>
 
@@ -456,6 +457,25 @@
     </section>
 
   </main>
+
+  <div id="fullscreenModal" class="fullscreen-modal" hidden>
+    <div class="fullscreen-backdrop" data-close-fullscreen></div>
+    <section class="fullscreen-dialog" role="dialog" aria-modal="true" aria-labelledby="fullscreenTitle" tabindex="-1">
+      <div class="fullscreen-toolbar">
+        <strong id="fullscreenTitle" data-i18n="fullscreenTitle">Advertisement preview</strong>
+        <div class="fullscreen-tools">
+          <button id="zoomOutBtn" type="button" data-i18n-aria-label="zoomOutLabel" aria-label="Zoom out">−</button>
+          <output id="zoomLevel">100%</output>
+          <button id="zoomInBtn" type="button" data-i18n-aria-label="zoomInLabel" aria-label="Zoom in">+</button>
+          <button id="zoomResetBtn" type="button" data-i18n="zoomReset">Reset</button>
+          <button id="closeFullscreenBtn" type="button" data-i18n-aria-label="fullscreenClose" aria-label="Close preview">×</button>
+        </div>
+      </div>
+      <div id="fullscreenViewport" class="fullscreen-viewport">
+        <img id="fullscreenImage" alt="Full-size advertisement preview" data-i18n-alt="fullscreenImageAlt" />
+      </div>
+    </section>
+  </div>
 
   <!-- APPLICATION LOGIC -->
   <script src="/app.js"></script>
