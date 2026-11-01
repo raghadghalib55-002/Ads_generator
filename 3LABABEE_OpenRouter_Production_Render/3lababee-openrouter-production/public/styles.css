@@ -734,3 +734,16 @@ html[dir="ltr"] .creation-steps { direction: ltr; }
 .comparison-drag-input[hidden]{display:none!important}
 .comparison-stage.is-comparing .comparison-divider{z-index:3}
 .comparison-stage.is-comparing .comparison-label{z-index:4}
+
+/* Real request state: spinner is indeterminate, never implies fake percentage. */
+.generation-progress{display:flex;align-items:center;gap:14px;padding:15px;margin-top:13px;border:1px solid #cddaf0;background:#f4f8ff;border-radius:13px;color:#24255f}
+.generation-progress[hidden],.generation-error[hidden]{display:none!important}
+.generation-progress strong,.generation-error strong{font-size:13px}
+.generation-progress p,.generation-error p{margin:5px 0 0;font-size:12px;line-height:1.6;color:#65748d}
+.generation-spinner{width:25px;height:25px;flex:none;border-radius:50%;border:3px solid #d2d9ed;border-top-color:#24255f;animation:generation-spin .85s linear infinite}
+@keyframes generation-spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.generation-spinner{animation-duration:2.5s}}
+.generation-error{margin-top:13px;padding:14px;border:1px solid #efc8c8;background:#fff7f7;border-radius:13px}
+.generation-error strong{color:#9c3434}
+.generation-error p{overflow-wrap:anywhere}
+.generation-error button{margin-top:12px}
