@@ -727,3 +727,10 @@ html[dir="ltr"] .creation-steps { direction: ltr; }
 .comparison-controls label{display:block;margin-bottom:8px;color:#68708a;font-size:12px;line-height:1.5}
 .comparison-controls input{display:block;width:100%;accent-color:#24255f;cursor:ew-resize}
 .comparison-original[hidden],.comparison-divider[hidden],.comparison-label[hidden],.comparison-controls[hidden]{display:none!important}
+
+/* Drag directly on the image: the invisible range covers the comparison surface. */
+.comparison-stage.is-comparing{touch-action:pan-y}
+.comparison-drag-input{position:absolute;inset:0;display:block;width:100%;height:100%;margin:0;padding:0;opacity:0;cursor:ew-resize;z-index:5;touch-action:pan-y}
+.comparison-drag-input[hidden]{display:none!important}
+.comparison-stage.is-comparing .comparison-divider{z-index:3}
+.comparison-stage.is-comparing .comparison-label{z-index:4}
