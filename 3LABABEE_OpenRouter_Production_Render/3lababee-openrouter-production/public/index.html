@@ -301,6 +301,16 @@
       >
         Generate with 3LABABEE
       </button>
+      <div id="generationProgress" class="generation-progress" role="status" aria-live="polite" hidden>
+        <span class="generation-spinner" aria-hidden="true"></span>
+        <div><strong data-i18n="generationWorking">Creating your advertisement…</strong>
+        <p data-i18n="generationWait">This may take a little while. Please keep this page open.</p></div>
+      </div>
+      <div id="generationError" class="generation-error" role="alert" hidden>
+        <strong data-i18n="generationFailed">Could not generate the advertisement</strong>
+        <p id="generationErrorMessage"></p>
+        <button id="retryGenerateBtn" type="button" data-i18n="generationRetry">Try again</button>
+      </div>
 
       </section>
 
