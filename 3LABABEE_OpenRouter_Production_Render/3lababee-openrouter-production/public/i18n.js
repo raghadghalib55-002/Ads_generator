@@ -2,6 +2,7 @@
 const translations = {
   en: {
     title: "AI Product Post Generator",
+    fullscreenOpen: "Fullscreen preview", fullscreenTitle: "Advertisement preview", fullscreenClose: "Close preview", fullscreenImageAlt: "Full-size advertisement preview", zoomInLabel: "Zoom in", zoomOutLabel: "Zoom out", zoomReset: "Reset",
     generationWorking: "Creating your advertisement…", generationWait: "This may take a little while. Please keep this page open.", generationFailed: "Could not generate the advertisement", generationRetry: "Try again",
     subtitle: "AI-powered product advertising studio",
     intro: "Upload your product image, create a professional advertisement with 3LABABEE, and add your QR code to the final design.",
@@ -53,6 +54,7 @@ const translations = {
 
   ar: {
     title: "مولّد إعلانات المنتجات بالذكاء الاصطناعي",
+    fullscreenOpen: "عرض بملء الشاشة", fullscreenTitle: "معاينة الإعلان", fullscreenClose: "إغلاق المعاينة", fullscreenImageAlt: "معاينة الإعلان بالحجم الكامل", zoomInLabel: "تكبير", zoomOutLabel: "تصغير", zoomReset: "إعادة ضبط",
     generationWorking: "جاري إنشاء الإعلان…", generationWait: "قد يستغرق الأمر بعض الوقت. يُرجى إبقاء الصفحة مفتوحة.", generationFailed: "تعذّر إنشاء الإعلان", generationRetry: "إعادة المحاولة",
     subtitle: "استوديو ذكي لإنشاء إعلانات احترافية لمنتجاتك",
     intro: "ارفع صورة منتجك، وأنشئ إعلانًا احترافيًا باستخدام 3LABABEE، ثم أضف رمز QR الخاص بالمنتج إلى التصميم النهائي.",
@@ -118,6 +120,10 @@ function applyLanguage(lang) {
     }
   });
 
+  document.querySelectorAll("[data-i18n-alt]").forEach((element) => {
+    const value = dictionary[element.dataset.i18nAlt];
+    if (value) element.setAttribute("alt", value);
+  });
   document.querySelectorAll("[data-i18n-aria-label]").forEach((element) => {
     const value = dictionary[element.dataset.i18nAriaLabel];
     if (value) element.setAttribute("aria-label", value);
