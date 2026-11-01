@@ -2,6 +2,7 @@
 const translations = {
   en: {
     title: "AI Product Post Generator",
+    generationWorking: "Creating your advertisement…", generationWait: "This may take a little while. Please keep this page open.", generationFailed: "Could not generate the advertisement", generationRetry: "Try again",
     subtitle: "AI-powered product advertising studio",
     intro: "Upload your product image, create a professional advertisement with 3LABABEE, and add your QR code to the final design.",
     modelLabel: "AI model",
@@ -52,6 +53,7 @@ const translations = {
 
   ar: {
     title: "مولّد إعلانات المنتجات بالذكاء الاصطناعي",
+    generationWorking: "جاري إنشاء الإعلان…", generationWait: "قد يستغرق الأمر بعض الوقت. يُرجى إبقاء الصفحة مفتوحة.", generationFailed: "تعذّر إنشاء الإعلان", generationRetry: "إعادة المحاولة",
     subtitle: "استوديو ذكي لإنشاء إعلانات احترافية لمنتجاتك",
     intro: "ارفع صورة منتجك، وأنشئ إعلانًا احترافيًا باستخدام 3LABABEE، ثم أضف رمز QR الخاص بالمنتج إلى التصميم النهائي.",
     modelLabel: "نموذج الذكاء الاصطناعي",
