@@ -39,6 +39,7 @@ const translations = {
     resetQr: "Reset QR",
     downloadBtn: "Download PNG",
     initialStatus: "Upload a product image to start.",
+    comparisonBefore: "Before", comparisonAfter: "After", comparisonInstruction: "Slide to compare the original product and generated advertisement.", comparisonRangeLabel: "Before and after comparison",
     previewTitle: "Final Post Preview",
     previewSize: "1:1 · 1024 × 1024 export",
     modelStandard: "Nano Banana 2 · Standard",
@@ -88,6 +89,7 @@ const translations = {
     resetQr: "إعادة ضبط QR",
     downloadBtn: "تحميل الصورة PNG",
     initialStatus: "ارفع صورة المنتج للبدء.",
+    comparisonBefore: "قبل", comparisonAfter: "بعد", comparisonInstruction: "حرّك السلايدر للمقارنة بين صورة المنتج الأصلية والإعلان الناتج.", comparisonRangeLabel: "مقارنة قبل وبعد",
     previewTitle: "معاينة الإعلان النهائي",
     previewSize: "مربع 1:1 · التصدير بدقة 1024 × 1024",
     modelStandard: "Nano Banana 2 · قياسي",
@@ -112,6 +114,11 @@ function applyLanguage(lang) {
     if (Object.prototype.hasOwnProperty.call(dictionary, key)) {
       element.textContent = dictionary[key];
     }
+  });
+
+  document.querySelectorAll("[data-i18n-aria-label]").forEach((element) => {
+    const value = dictionary[element.dataset.i18nAriaLabel];
+    if (value) element.setAttribute("aria-label", value);
   });
 
   document.querySelectorAll(".lang-btn").forEach((button) => {
