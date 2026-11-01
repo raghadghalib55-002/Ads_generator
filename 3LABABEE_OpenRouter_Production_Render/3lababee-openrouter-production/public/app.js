@@ -21,7 +21,6 @@ const comparisonOriginal = document.getElementById("comparisonOriginal");
 const comparisonDivider = document.getElementById("comparisonDivider");
 const comparisonBeforeLabel = document.getElementById("comparisonBeforeLabel");
 const comparisonAfterLabel = document.getElementById("comparisonAfterLabel");
-const comparisonControls = document.getElementById("comparisonControls");
 const comparisonRange = document.getElementById("comparisonRange");
 
 function updateComparison() {
@@ -31,7 +30,7 @@ function updateComparison() {
   comparisonDivider.hidden = !available;
   comparisonBeforeLabel.hidden = !available;
   comparisonAfterLabel.hidden = !available;
-  comparisonControls.hidden = !available;
+  comparisonRange.hidden = !available;
   if (available) {
     if (comparisonOriginal.src !== productPreviewUrl) comparisonOriginal.src = productPreviewUrl;
     comparisonStage.style.setProperty("--comparison-split", comparisonRange.value + "%");
