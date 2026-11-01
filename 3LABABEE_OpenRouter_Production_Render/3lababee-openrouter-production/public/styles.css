@@ -764,3 +764,26 @@ html[dir="ltr"] .creation-steps { direction: ltr; }
 .fullscreen-viewport img{display:block;width:100%;max-width:none;height:auto;margin:auto;object-fit:contain}
 body.fullscreen-open{overflow:hidden}
 @media(max-width:480px){.fullscreen-modal{padding:7px}.fullscreen-dialog{height:96vh}.fullscreen-toolbar{padding:10px}.fullscreen-viewport{padding:8px}}
+
+/* Local generation history gallery */
+.history-modal[hidden],#historyEmpty[hidden]{display:none!important}
+.history-modal{position:fixed;inset:0;z-index:1100;display:grid;place-items:center;padding:16px}
+.history-backdrop{position:absolute;inset:0;background:rgba(9,13,35,.8)}
+.history-dialog{position:relative;display:flex;flex-direction:column;width:min(980px,100%);max-height:90vh;overflow:auto;background:white;border-radius:18px;padding:22px}
+.history-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid #e9ebf1;padding-bottom:14px}
+.history-header h2{margin:0;font-size:20px;color:#24255f}
+.history-header p{font-size:12px;color:#69758a;margin:8px 0 0;line-height:1.5}
+#historyCloseBtn{font-size:25px;min-width:38px}
+#historyNote{font-size:12px;color:#a03939}
+#historyEmpty{text-align:center;padding:45px 12px;color:#69758a}
+.history-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:15px}
+.history-card{overflow:hidden;border:1px solid #e5e9f1;border-radius:13px;background:#fff}
+.history-card img{display:block;width:100%;aspect-ratio:1/1;object-fit:contain;background:#f6f7fa}
+.history-card-meta{padding:12px}
+.history-card-meta strong{display:block;font-size:13px;color:#24255f;overflow-wrap:anywhere}
+.history-card-meta p{font-size:11px;line-height:1.6;color:#69758a;overflow-wrap:anywhere}
+.history-actions{display:flex;gap:8px;flex-wrap:wrap}
+.history-actions button{font-size:11px;padding:7px 9px}
+.history-delete{color:#b33d3d}
+body.history-open{overflow:hidden}
+@media(max-width:480px){.history-dialog{padding:13px;max-height:95vh}.history-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.history-card-meta{padding:8px}}
