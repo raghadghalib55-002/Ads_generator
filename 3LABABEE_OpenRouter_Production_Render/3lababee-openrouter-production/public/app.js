@@ -553,14 +553,8 @@ generateBtn.addEventListener("click", async () => {
     );
 
 
-    const cost = response.headers.get("X-OpenRouter-Cost");
-    if (cost) {
-      const value = Number(cost);
-      costEl.textContent = Number.isFinite(value)
-        ? `Generation cost: $${value.toFixed(4)}`
-        : `Generation cost: $${cost}`;
-      costEl.classList.remove("hidden");
-    }
+    // Provider cost is intentionally not shown in the customer interface.
+    costEl.classList.add("hidden");
 
     render();
     generationBusy = false;
