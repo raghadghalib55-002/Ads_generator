@@ -644,6 +644,8 @@ generateBtn.addEventListener("click", async () => {
     costEl.classList.add("hidden");
 
     render();
+    try { await window.generationHistory?.saveNew(); }
+    catch (historyError) { console.warn("Local history could not be saved:", historyError); }
     generationBusy = false;
     goToStep(4);
     setStatus(
@@ -694,6 +696,9 @@ downloadBtn.addEventListener("click", async () => {
         "image/png"
       );
     });
+
+    try { await window.generationHistory?.update(); }
+    catch (historyError) { console.warn("Local history update failed:", historyError); }
 
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
