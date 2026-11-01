@@ -440,6 +440,7 @@
         </strong>
 
         <div class="preview-head-actions">
+          <button id="historyOpenBtn" type="button" class="preview-fullscreen-btn" data-i18n="historyOpen">History</button>
           <span id="exportResolution">1:1 · 1024 × 1024 export</span>
           <button id="openFullscreenBtn" type="button" class="preview-fullscreen-btn" data-i18n="fullscreenOpen" aria-haspopup="dialog">Fullscreen preview</button>
         </div>
@@ -477,6 +478,21 @@
     </section>
   </div>
 
+  <div id="historyModal" class="history-modal" hidden>
+    <div class="history-backdrop" data-close-history></div>
+    <section class="history-dialog" role="dialog" aria-modal="true" aria-labelledby="historyTitle">
+      <div class="history-header">
+        <div><h2 id="historyTitle" data-i18n="historyTitle">Generation History</h2>
+          <p data-i18n="historySubtitle">Saved in this browser only. Clearing site data removes saved images.</p></div>
+        <button id="historyCloseBtn" type="button" data-i18n-aria-label="historyClose" aria-label="Close history">×</button>
+      </div>
+      <p id="historyNote" role="status"></p>
+      <p id="historyEmpty" data-i18n="historyEmpty" hidden>No saved advertisements yet.</p>
+      <div id="historyGrid" class="history-grid"></div>
+    </section>
+  </div>
+
+  <script src="/history.js"></script>
   <!-- APPLICATION LOGIC -->
   <script src="/app.js"></script>
 
