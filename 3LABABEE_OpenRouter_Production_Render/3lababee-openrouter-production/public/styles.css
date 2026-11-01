@@ -787,3 +787,9 @@ body.fullscreen-open{overflow:hidden}
 .history-delete{color:#b33d3d}
 body.history-open{overflow:hidden}
 @media(max-width:480px){.history-dialog{padding:13px;max-height:95vh}.history-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.history-card-meta{padding:8px}}
+
+/* Post-generation actions */
+.regenerate-actions{margin-top:18px;padding-top:15px;border-top:1px solid #e8ebf2}
+.regenerate-actions p{font-size:12px;line-height:1.65;color:#6c7588;margin:0 0 12px}
+.regenerate-buttons{display:flex;gap:10px;flex-wrap:wrap}
+.regenerate-buttons button{flex:1 1 155px;min-height:43px}
