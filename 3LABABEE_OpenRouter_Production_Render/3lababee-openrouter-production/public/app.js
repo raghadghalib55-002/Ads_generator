@@ -16,6 +16,31 @@ const resolutionSelect = document.getElementById("resolutionSelect");
 const modelHint = document.getElementById("modelHint");
 const preserveBrand = document.getElementById("preserveBrand");
 
+const comparisonStage = document.getElementById("comparisonStage");
+const comparisonOriginal = document.getElementById("comparisonOriginal");
+const comparisonDivider = document.getElementById("comparisonDivider");
+const comparisonBeforeLabel = document.getElementById("comparisonBeforeLabel");
+const comparisonAfterLabel = document.getElementById("comparisonAfterLabel");
+const comparisonControls = document.getElementById("comparisonControls");
+const comparisonRange = document.getElementById("comparisonRange");
+
+function updateComparison() {
+  const available = Boolean(aiPosterImage && productPreviewUrl && currentStep === 4);
+  comparisonStage.classList.toggle("is-comparing", available);
+  comparisonOriginal.hidden = !available;
+  comparisonDivider.hidden = !available;
+  comparisonBeforeLabel.hidden = !available;
+  comparisonAfterLabel.hidden = !available;
+  comparisonControls.hidden = !available;
+  if (available) {
+    if (comparisonOriginal.src !== productPreviewUrl) comparisonOriginal.src = productPreviewUrl;
+    comparisonStage.style.setProperty("--comparison-split", comparisonRange.value + "%");
+  } else {
+    comparisonOriginal.removeAttribute("src");
+  }
+}
+comparisonRange.addEventListener("input", updateComparison);
+
 const canvas = document.getElementById("finalCanvas");
 const ctx = canvas.getContext("2d");
 
@@ -380,6 +405,7 @@ function updateWizard() {
   stepBackBtn.disabled = generationBusy;
   stepNextBtn.hidden = currentStep >= 3;
   stepNextBtn.disabled = generationBusy || (currentStep === 1 && !productFile);
+  updateComparison();
   if (currentStep === 3) {
     const model = modelSelect.options[modelSelect.selectedIndex]?.textContent?.trim() || modelSelect.value;
     const category = productTypeSelect.options[productTypeSelect.selectedIndex]?.textContent?.trim() || productTypeSelect.value;
