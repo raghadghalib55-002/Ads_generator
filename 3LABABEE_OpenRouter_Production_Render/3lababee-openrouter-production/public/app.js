@@ -534,10 +534,21 @@ qrInput.addEventListener("change", async () => {
   );
 });
 
+const generationProgress = document.getElementById("generationProgress");
+const generationError = document.getElementById("generationError");
+const generationErrorMessage = document.getElementById("generationErrorMessage");
+const retryGenerateBtn = document.getElementById("retryGenerateBtn");
+retryGenerateBtn.addEventListener("click", () => {
+  if (!generationBusy && productFile) generateBtn.click();
+});
+
 generateBtn.addEventListener("click", async () => {
-  if (!productFile) return;
+  if (!productFile || generationBusy) return;
 
   generationBusy = true;
+  generationError.hidden = true;
+  generationProgress.hidden = false;
+  generateBtn.setAttribute("aria-busy", "true");
   updateWizard();
   generateBtn.disabled = true;
   downloadBtn.disabled = true;
@@ -592,9 +603,13 @@ generateBtn.addEventListener("click", async () => {
     );
   } catch (error) {
     console.error(error);
-    setStatus(error.message || "AI generation failed.", "error");
+    generationErrorMessage.textContent = error.message || (document.documentElement.lang === "ar" ? "فشل إنشاء الإعلان. يرجى المحاولة مرة أخرى." : "Generation failed. Please try again.");
+    generationError.hidden = false;
+    setStatus(document.documentElement.lang === "ar" ? "لم يكتمل إنشاء الإعلان. يمكنك إعادة المحاولة." : "Advertisement generation failed. You can retry.", "error");
   } finally {
     generationBusy = false;
+    generationProgress.hidden = true;
+    generateBtn.removeAttribute("aria-busy");
     generateBtn.disabled = !productFile;
     updateWizard();
   }
