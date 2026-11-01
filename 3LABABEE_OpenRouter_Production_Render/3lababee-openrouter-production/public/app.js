@@ -40,6 +40,57 @@ function updateComparison() {
 }
 comparisonRange.addEventListener("input", updateComparison);
 
+const fullscreenModal = document.getElementById("fullscreenModal");
+const fullscreenDialog = fullscreenModal.querySelector(".fullscreen-dialog");
+const fullscreenViewport = document.getElementById("fullscreenViewport");
+const fullscreenImage = document.getElementById("fullscreenImage");
+const openFullscreenBtn = document.getElementById("openFullscreenBtn");
+const closeFullscreenBtn = document.getElementById("closeFullscreenBtn");
+const zoomInBtn = document.getElementById("zoomInBtn");
+const zoomOutBtn = document.getElementById("zoomOutBtn");
+const zoomResetBtn = document.getElementById("zoomResetBtn");
+const zoomLevel = document.getElementById("zoomLevel");
+let previewZoom = 100;
+let fullscreenReturnFocus = null;
+function setPreviewZoom(value) {
+  previewZoom = Math.max(50, Math.min(300, value));
+  fullscreenImage.style.width = previewZoom + "%";
+  zoomLevel.textContent = previewZoom + "%";
+  zoomInBtn.disabled = previewZoom >= 300;
+  zoomOutBtn.disabled = previewZoom <= 50;
+}
+function closeFullscreen() {
+  if (fullscreenModal.hidden) return;
+  fullscreenModal.hidden = true;
+  document.body.classList.remove("fullscreen-open");
+  fullscreenImage.removeAttribute("src");
+  fullscreenReturnFocus?.focus();
+}
+openFullscreenBtn.addEventListener("click", () => {
+  // Capture the actual export canvas, never the before/after comparison overlay.
+  fullscreenImage.src = canvas.toDataURL("image/png");
+  fullscreenReturnFocus = document.activeElement;
+  fullscreenModal.hidden = false;
+  document.body.classList.add("fullscreen-open");
+  setPreviewZoom(100);
+  fullscreenViewport.scrollTop = 0;
+  fullscreenViewport.scrollLeft = 0;
+  fullscreenDialog.focus();
+});
+closeFullscreenBtn.addEventListener("click", closeFullscreen);
+fullscreenModal.querySelector("[data-close-fullscreen]").addEventListener("click", closeFullscreen);
+zoomInBtn.addEventListener("click", () => setPreviewZoom(previewZoom + 25));
+zoomOutBtn.addEventListener("click", () => setPreviewZoom(previewZoom - 25));
+zoomResetBtn.addEventListener("click", () => setPreviewZoom(100));
+fullscreenModal.addEventListener("keydown", event => {
+  if (event.key === "Escape") { event.preventDefault(); closeFullscreen(); }
+  if (event.key === "Tab") {
+    const controls = [zoomOutBtn, zoomInBtn, zoomResetBtn, closeFullscreenBtn].filter(el => !el.disabled);
+    if (event.shiftKey && document.activeElement === controls[0]) { event.preventDefault(); controls[controls.length - 1].focus(); }
+    else if (!event.shiftKey && document.activeElement === controls[controls.length - 1]) { event.preventDefault(); controls[0].focus(); }
+  }
+});
+
 const canvas = document.getElementById("finalCanvas");
 const ctx = canvas.getContext("2d");
 
